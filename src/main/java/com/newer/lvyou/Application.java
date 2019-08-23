@@ -4,10 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Lvyou0823Application {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Lvyou0823Application.class, args);
+
+        SpringApplication.run(Application.class, args);
+        //啊哈哈哈          ----彭俏蓉
     }
 
 }
