@@ -9,9 +9,6 @@ public class Application {
     public static void main(String[] args) {
 
         SpringApplication.run(Application.class, args);
-        //啊哈哈哈      tent吧vv旅人我v人    ----彭俏蓉
+
     }
-    //我是胡
-    //fghjk--hjw
-    //w我也不知道
 }
