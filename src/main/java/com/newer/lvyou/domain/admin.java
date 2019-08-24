@@ -8,14 +8,16 @@ public class admin implements Serializable {
     private int id;      //管理员id
     private String name; //管理员名字
     private String pwd;  //管理员密码
+    private int level;   //管理员等级
 
     public admin() {
     }
 
-    public admin(int id, String name, String pwd) {
+    public admin(int id, String name, String pwd,int level) {
         this.id = id;
         this.name = name;
         this.pwd = pwd;
+        this.level = level;
     }
 
     public static long getSerialVersionUID() {
@@ -46,12 +48,21 @@ public class admin implements Serializable {
         this.pwd = pwd;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     @Override
     public String toString() {
         return "admin{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", pwd='" + pwd + '\'' +
+                ", level=" + level +
                 '}';
     }
 }
