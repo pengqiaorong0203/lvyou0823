@@ -22,11 +22,14 @@ public class dingdan implements Serializable {
     private String info;   //备注信息
     private int state;     //订单状态   生成的时候为0：未付款   点击支付后为1：已付款   已经去旅游了为2：已旅游
     private int jiuid;     //行程绑定的酒店id
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date xiadantime;//订单下单时间
 
     public dingdan() {
     }
 
-    public dingdan(int id, int uid, String uname, String phone, String email, Date time, int chengren, int ertong, String info, int state, int jiuid) {
+    public dingdan(int id, int uid, String uname, String phone, String email, Date time, int chengren, int ertong, String info, int state, int jiuid,Date xiadantime) {
         this.id = id;
         this.uid = uid;
         this.uname = uname;
@@ -38,6 +41,7 @@ public class dingdan implements Serializable {
         this.info = info;
         this.state = state;
         this.jiuid = jiuid;
+        this.xiadantime = xiadantime;
     }
 
     public static long getSerialVersionUID() {
@@ -132,6 +136,14 @@ public class dingdan implements Serializable {
         this.jiuid = jiuid;
     }
 
+    public Date getXiadantime() {
+        return xiadantime;
+    }
+
+    public void setXiadantime(Date xiadantime) {
+        this.xiadantime = xiadantime;
+    }
+
     @Override
     public String toString() {
         return "dingdan{" +
@@ -146,6 +158,7 @@ public class dingdan implements Serializable {
                 ", info='" + info + '\'' +
                 ", state=" + state +
                 ", jiuid=" + jiuid +
+                ", xiadantime=" + xiadantime +
                 '}';
     }
 }
