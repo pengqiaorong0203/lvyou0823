@@ -1,0 +1,86 @@
+package com.newer.lvyou.controller;
+
+import com.newer.lvyou.domain.admin;
+import com.newer.lvyou.service.HouTaiAdminService;
+import com.newer.lvyou.util.SecurityCode;
+import com.newer.lvyou.util.SecurityImage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+/**
+ * 登录
+ */
+@RestController
+@RequestMapping("/api")
+public class HoutaiAdminController {
+
+    @Autowired
+    private HouTaiAdminService houTaiAdminService;
+
+    /**
+     * 定义验证码字符串；
+     */
+    private String string;
+
+    /**
+     * 查询用户名跟密码是否存在并登录
+     * @param name
+     * @param pwd
+     * @param yzm
+     * @return
+     */
+    @PostMapping("/findBynamePassword")
+    public ResponseEntity<?> findBynamePassword(@RequestParam("name") String name,
+                                                @RequestParam("pwd") String pwd,
+                                                @RequestParam("yzm") String yzm){
+        System.out.println(name);
+        System.out.println(pwd);
+        System.out.println(yzm);
+        admin ad = houTaiAdminService.findBynamePassword(name,pwd);
+
+        int msg = 0;
+        if (string.equals(yzm)){
+            if (ad!=null){
+                msg = 1;
+                return new ResponseEntity<>(msg, HttpStatus.OK);
+            }else {
+                msg = 2;
+                return new ResponseEntity<>(msg, HttpStatus.OK);
+            }
+        }else {
+            msg = 3;
+        }
+        return new ResponseEntity<>(msg, HttpStatus.OK);
+    }
+
+    /**
+     * 生成验证码
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @GetMapping("/img")
+    public void createImg(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        System.out.println("************验证码*****************");
+        string = SecurityCode.getSecurityCode();
+        BufferedImage bufimg = SecurityImage.createImage(string);
+        // 设置响应头部不缓存
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("cache-Control", "no-cache");
+        // 设置内容响应格式
+        response.setContentType("image/jpeg");
+        // 设置过期时间
+        response.setDateHeader("Expirs", 0);
+        // 通过图片io流写出去
+        ImageIO.write(bufimg, "JPEG", response.getOutputStream());
+    }
+}
