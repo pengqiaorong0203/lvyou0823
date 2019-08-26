@@ -1,7 +1,6 @@
 package com.newer.lvyou.controller;
 
-import com.newer.lvyou.domain.jiudian;
-import com.newer.lvyou.domain.tuandui;
+import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,33 +15,153 @@ public class HoutaiContorller {
     @Autowired
     private HouTaiService houTaiService;
 
+    //查询所有团队
     @GetMapping("/queryTD")
     public ResponseEntity<?> queryTD(){
         List<tuandui> list = houTaiService.selectTD();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
+    //新增团队
     @PostMapping("/addTD")
     public ResponseEntity<?> addTD(tuandui td){
         int count = houTaiService.addTD(td);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
+    //修改团队
     @PostMapping("/updTD")
     public ResponseEntity<?> updTd(tuandui td){
         int count = houTaiService.updTD(td);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
+    //删除团队
     @GetMapping("/delTD")
     public ResponseEntity<?> delTD(int id){
         int count = houTaiService.delTD(id);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
+    //查询所有酒店
     @GetMapping("/queryJD")
     public ResponseEntity<?> queryJD(){
         List<jiudian> list = houTaiService.selectJD();
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+    //新增酒店
+    @PostMapping("/addJD")
+    public ResponseEntity<?> addJD(jiudian jd){
+        int count = houTaiService.addJD(jd);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //修改酒店
+    @PostMapping("/updJD")
+    public ResponseEntity<?> updJd(jiudian jd){
+        int count = houTaiService.updJD(jd);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //删除酒店
+    @GetMapping("/delJD")
+    public ResponseEntity<?> delJD(int id){
+        int count = houTaiService.delJD(id);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //查询所有旅游国家列表
+    @GetMapping("/queryGJList")
+    public ResponseEntity<?> queryGJList(){
+        List<guojialist> list = houTaiService.queryGJList();
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+    //新增旅游国家
+    @PostMapping("/addGJList")
+    public ResponseEntity<?> addGJList(guojialist gjl){
+        int count = houTaiService.addGJList(gjl);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //修改旅游国家
+    @PostMapping("/updGJList")
+    public ResponseEntity<?> updGJList(guojialist gjl){
+        int count = houTaiService.updGJList(gjl);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+
+    //删除旅游国家
+    @GetMapping("/delGJList")
+    public ResponseEntity<?> delGJList(int id){
+        int count = houTaiService.delGJList(id);
+        houTaiService.delLYXQ(id);   //删除旅游国家时一起删除旅游详情
+        houTaiService.delJTXC(id);   //删除旅游国家时一起删除具体行程
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //通过旅游国家id搜索旅游详情
+    @GetMapping("/queryByGuoId")
+    public ResponseEntity<?> queryByGuoId(int guoid){
+        lvyouxiangqing lyxq = houTaiService.selectByGuoId(guoid);
+        return new ResponseEntity<>(lyxq,HttpStatus.OK);
+    }
+
+    //添加旅游详情
+    @PostMapping("/addLVXQ")
+    public ResponseEntity<?> addLVXQ(lvyouxiangqing lyxq){
+        int count = houTaiService.addLYXQ(lyxq);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //修改旅游详情
+    @PostMapping("/updLVXQ")
+    public ResponseEntity<?> updLVXQ(lvyouxiangqing lvyq){
+        int count = houTaiService.updLYXQ(lvyq);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //通过旅游国家id删除旅游详情 在删除国家的时候一起调用所以注释了 要用的话再放开
+    /*@GetMapping("/delLVXQ")
+    public ResponseEntity<?> delLVXQ(int guoid){
+        int count = houTaiService.delLYXQ(guoid);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }*/
+
+    //根据旅游国家id搜索所有行程列表
+    @GetMapping("/queryJTXC")
+    public ResponseEntity<?> queryJTXC(int guoid){
+        List<jutixingcheng> list = houTaiService.selectJTXC(guoid);
+        return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+    //添加新行程
+    @PostMapping("/addJTXC")
+    public ResponseEntity<?> addJTXC(jutixingcheng jtxc){
+        int count = houTaiService.addJTXC(jtxc);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //修改具体行程
+    @PostMapping("/updJTXC")
+    public ResponseEntity<?> updJTXC(jutixingcheng jtxc){
+        int count = houTaiService.updJTXC(jtxc);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //通过旅游国家id删除具体行程 在删除旅游国家的时候一起调用所以注释了 要用的话再放开
+    /*@GetMapping("/delJTXC")
+    public ResponseEntity<?> delJTXC(int guoid){
+        int count = houTaiService.delJTXC(guoid);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }*/
+
+    //搜索所有图片
+    @GetMapping("/queryTP")
+    public ResponseEntity<?> queryTP(){
+        List<tupian> list = houTaiService.selectTP();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 }

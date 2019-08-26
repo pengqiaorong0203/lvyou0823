@@ -1,7 +1,6 @@
 package com.newer.lvyou.service;
 
-import com.newer.lvyou.domain.jiudian;
-import com.newer.lvyou.domain.tuandui;
+import com.newer.lvyou.domain.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,4 +16,36 @@ public interface HouTaiService {
     public int delTD(@Param("id")int id);
 
     public List<jiudian> selectJD();
+
+    public int addJD(jiudian jd);
+
+    public int updJD(jiudian jd);
+
+    public int delJD(@Param("id")int id);
+
+    public List<guojialist> queryGJList();
+
+    public int addGJList(guojialist gjl);
+
+    public int updGJList(guojialist gjl);
+
+    public int delGJList(int id);
+
+    public lvyouxiangqing selectByGuoId(@Param("guoid")int guoid);
+
+    public int addLYXQ(lvyouxiangqing lyxq);
+
+    public int updLYXQ(lvyouxiangqing lyxq);
+
+    public int delLYXQ(@Param("guoid")int guoid);
+
+    public List<jutixingcheng> selectJTXC(@Param("guoid")int guoid);
+
+    public int addJTXC(jutixingcheng jtxc);
+
+    public int updJTXC(jutixingcheng jtxc);
+
+    public int delJTXC(@Param("guoid")int guoid);
+
+    public List<tupian> selectTP();
 }
