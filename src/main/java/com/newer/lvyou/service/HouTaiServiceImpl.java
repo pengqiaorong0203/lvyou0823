@@ -117,4 +117,34 @@ public class HouTaiServiceImpl implements HouTaiService {
     public List<tupian> selectTP() {
         return houtaiMapper.selectTP();
     }
+
+    @Override
+    public tupian selectByTPId(int id) {
+        return houtaiMapper.selectByTPId(id);
+    }
+
+    @Override
+    public int addTP(tupian tp) {
+        return houtaiMapper.addTP(tp);
+    }
+
+    @Override
+    public int updTP(tupian tp) {
+        return houtaiMapper.updTP(tp);
+    }
+
+    @Override
+    public tuandui selectTDById(int id) {
+        return houtaiMapper.selectTDById(id);
+    }
+
+    @Override
+    public jiudian selectJDById(int id) {
+        return houtaiMapper.selectJDById(id);
+    }
+
+    @Override
+    public guojialist selectGJByid(int id) {
+        return houtaiMapper.selectGJByid(id);
+    }
 }

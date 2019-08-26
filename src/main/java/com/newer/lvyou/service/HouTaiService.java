@@ -48,4 +48,16 @@ public interface HouTaiService {
     public int delJTXC(@Param("guoid")int guoid);
 
     public List<tupian> selectTP();
+
+    public tupian selectByTPId(@Param("id")int id);
+
+    public int addTP(tupian tp);
+
+    public int updTP(tupian tp);
+
+    public tuandui selectTDById(@Param("id")int id);
+
+    public jiudian selectJDById(@Param("id")int id);
+
+    public guojialist selectGJByid(@Param("id")int id);
 }

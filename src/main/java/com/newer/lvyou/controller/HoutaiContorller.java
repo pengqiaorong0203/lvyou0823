@@ -22,6 +22,13 @@ public class HoutaiContorller {
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
+    //根据团队id查找单个团队
+    @GetMapping("/queryTDById")
+    public ResponseEntity<?> queryTDById(int id){
+        tuandui td = houTaiService.selectTDById(id);
+        return new ResponseEntity<>(td,HttpStatus.OK);
+    }
+
     //新增团队
     @PostMapping("/addTD")
     public ResponseEntity<?> addTD(tuandui td){
@@ -50,6 +57,13 @@ public class HoutaiContorller {
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
+    //根据酒店id查询单个酒店
+    @GetMapping("/queryJDById")
+    public ResponseEntity<?> queryJDById(int id){
+        jiudian jd = houTaiService.selectJDById(id);
+        return new ResponseEntity<>(jd,HttpStatus.OK);
+    }
+
     //新增酒店
     @PostMapping("/addJD")
     public ResponseEntity<?> addJD(jiudian jd){
@@ -76,6 +90,13 @@ public class HoutaiContorller {
     public ResponseEntity<?> queryGJList(){
         List<guojialist> list = houTaiService.queryGJList();
         return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+    //根据国家id查找单个国家
+    @GetMapping("/selectGJById")
+    public ResponseEntity<?> selectGJById(int id){
+        guojialist gj = houTaiService.selectGJByid(id);
+        return new ResponseEntity<>(gj,HttpStatus.OK);
     }
 
     //新增旅游国家
@@ -164,4 +185,27 @@ public class HoutaiContorller {
         List<tupian> list = houTaiService.selectTP();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
+
+    //根据图片id查找图片
+    @GetMapping("/queryTPById")
+    public ResponseEntity<?> queryTPById(int id){
+        tupian tp = houTaiService.selectByTPId(id);
+        return new ResponseEntity<>(tp,HttpStatus.OK);
+    }
+
+    //添加一张图片
+    @PostMapping("/addTP")
+    public ResponseEntity<?> addTP(tupian tp){
+        int count = houTaiService.addTP(tp);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //修改图片
+    @PostMapping("/updTP")
+    public ResponseEntity<?> updTP(tupian tp){
+        int count = houTaiService.updTP(tp);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+
 }

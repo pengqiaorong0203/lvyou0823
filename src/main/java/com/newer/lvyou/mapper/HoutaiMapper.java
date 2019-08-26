@@ -3,7 +3,8 @@ package com.newer.lvyou.mapper;
 import com.newer.lvyou.domain.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ public interface HoutaiMapper {
 
     @Select("select * from tuandui")
     public List<tuandui> selectTD(); //查询所有团队
+
+    @Select("select * from tuandui where id = #{id}")
+    public tuandui selectTDById(@Param("id")int id);//根据团队id查询单个团队
 
     @Insert("insert into tuandui(tname,info,toux) values(#{tname},#{info},#{toux})")
     public int addTD(tuandui td);//新增团队
@@ -25,6 +29,9 @@ public interface HoutaiMapper {
     @Select("select * from jiudian")
     public List<jiudian> selectJD();//查询所有酒店
 
+    @Select("select * from jiudian where id = #{id}")
+    public jiudian selectJDById(@Param("id")int id);//根据酒店id查询单个酒店
+
     @Insert("insert into jiudian(guoid,jdname,info,tupian) values(#{guoid},#{jdname},#{info},#{tupian})")
     public int addJD(jiudian jd);//新增酒店
 
@@ -36,6 +43,9 @@ public interface HoutaiMapper {
 
     @Select("select * from guojialist")
     public List<guojialist> queryGJList();//查询所有国家列表
+
+    @Select("select * from guojialist where id = #{id}")
+    public guojialist selectGJByid(@Param("id")int id);//根据国家id查询单个国家
 
     @Insert("insert into guojialist(zhouname,guoname,tpurl,shuxing) values(#{zhouname},#{guoname},#{tpurl},#{shuxing})")
     public int addGJList(guojialist gjl);//添加新国家
@@ -70,6 +80,17 @@ public interface HoutaiMapper {
     @Delete("delete from jutixingcheng where guoid = #{guoid}")
     public int delJTXC(@Param("guoid")int guoid);//通过旅游国家id删除行程
 
-    @Select("select * from ")
+    @Select("select * from tupian")
     public List<tupian> selectTP();//搜索所有图片信息
+
+    @Select("select * from tupian where id = #{id}")
+    public tupian selectByTPId(@Param("id")int id);//根据id查询单个图片
+
+    @Insert("insert into tupian(guoid,tpurl) values(#{guoid},#{tpurl})")
+    public int addTP(tupian tp);//添加图片
+
+    @Update("update tupian set guoid = #{guoid},tpurl = #{tpurl} where id = #{id}")
+    public int updTP(tupian tp);//修改图片
+
+
 }
