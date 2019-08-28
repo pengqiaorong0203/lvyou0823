@@ -1,15 +1,23 @@
 package com.newer.lvyou.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.newer.lvyou.domain.GjlistPage.pageSize;
+
+@RestController
 public class HoutaiContorller {
 
     @Autowired
@@ -20,6 +28,13 @@ public class HoutaiContorller {
     public ResponseEntity<?> queryTD(){
         List<tuandui> list = houTaiService.selectTD();
         return new ResponseEntity<>(list,HttpStatus.OK);
+    }
+
+    //根据团队id查找单个团队
+    @GetMapping("/queryTDById")
+    public ResponseEntity<?> queryTDById(int id){
+        tuandui td = houTaiService.selectTDById(id);
+        return new ResponseEntity<>(td,HttpStatus.OK);
     }
 
     //新增团队
@@ -50,6 +65,13 @@ public class HoutaiContorller {
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
+    //根据酒店id查询单个酒店
+    @GetMapping("/queryJDById")
+    public ResponseEntity<?> queryJDById(int id){
+        jiudian jd = houTaiService.selectJDById(id);
+        return new ResponseEntity<>(jd,HttpStatus.OK);
+    }
+
     //新增酒店
     @PostMapping("/addJD")
     public ResponseEntity<?> addJD(jiudian jd){
@@ -72,10 +94,33 @@ public class HoutaiContorller {
     }
 
     //查询所有旅游国家列表
-    @GetMapping("/queryGJList")
-    public ResponseEntity<?> queryGJList(){
-        List<guojialist> list = houTaiService.queryGJList();
-        return new ResponseEntity<>(list,HttpStatus.OK);
+    @PostMapping("/queryGJList")
+    public ResponseEntity<?> queryGJList(String name,@RequestParam("iDisplayStart")int pageNo,@RequestParam("iDisplayLength")int pageSize){
+        String guoname = null;
+        if(name!=null) {
+            guoname = name;
+        }
+        List<guojialist> list = houTaiService.queryGJList(guoname,pageNo,pageSize);
+        JSONObject jo = new JSONObject();
+        int total = houTaiService.selectGJZS(guoname);
+        jo.put("data",list);
+        jo.put("iTotalDisplayRecords",total);
+        jo.put("iTotalRecords",total);
+        return new ResponseEntity<>(jo,HttpStatus.OK);
+    }
+
+    //查询旅游国家列表数量
+    @GetMapping("/queryGJZS")
+    public ResponseEntity<?> queryGJZS(String guoname){
+        int gjzs = houTaiService.selectGJZS(guoname);
+        return new ResponseEntity<>(gjzs,HttpStatus.OK);
+    }
+
+    //根据国家id查找单个国家
+    @GetMapping("/selectGJById")
+    public ResponseEntity<?> selectGJById(int id){
+        guojialist gj = houTaiService.selectGJByid(id);
+        return new ResponseEntity<>(gj,HttpStatus.OK);
     }
 
     //新增旅游国家
@@ -164,4 +209,26 @@ public class HoutaiContorller {
         List<tupian> list = houTaiService.selectTP();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
+
+    //根据图片id查找图片
+    @GetMapping("/queryTPById")
+    public ResponseEntity<?> queryTPById(int id){
+        tupian tp = houTaiService.selectByTPId(id);
+        return new ResponseEntity<>(tp,HttpStatus.OK);
+    }
+
+    //添加一张图片
+    @PostMapping("/addTP")
+    public ResponseEntity<?> addTP(tupian tp){
+        int count = houTaiService.addTP(tp);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //修改图片
+    @PostMapping("/updTP")
+    public ResponseEntity<?> updTP(tupian tp){
+        int count = houTaiService.updTP(tp);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
 }

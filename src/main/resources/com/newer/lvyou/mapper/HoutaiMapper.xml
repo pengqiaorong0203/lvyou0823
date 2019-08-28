@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newer.lvyou.mapper.HoutaiMapper">
+    <select id="queryGJList" resultType="guojialist">
+        select * from guojialist
+        <where>
+            1=1
+            <if test="guoname!=null and guoname!=''">
+                and guoname like concat('%',concat(#{guoname},'%'))
+            </if>
+            limit #{pageNo},#{pageSize}
+        </where>
+    </select>
+
+    <select id="selectGJZS" resultType="int">
+        SELECT COUNT(*) FROM guojialist
+        <where>
+            1=1
+            <if test="guoname!=null and guoname!=''">
+                and guoname like concat('%',concat(#{guoname},'%'))
+            </if>
+        </where>
+    </select>
+</mapper>
