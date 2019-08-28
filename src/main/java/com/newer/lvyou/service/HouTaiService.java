@@ -23,7 +23,9 @@ public interface HouTaiService {
 
     public int delJD(@Param("id")int id);
 
-    public List<guojialist> queryGJList();
+    public List<guojialist> queryGJList(@Param("guoname")String guoname,@Param("pageNo")int pageNo,@Param("pageSize")int pageSize);
+
+    public int selectGJZS(@Param("guoname")String guoname);
 
     public int addGJList(guojialist gjl);
 

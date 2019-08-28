@@ -1,15 +1,23 @@
 package com.newer.lvyou.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.newer.lvyou.domain.GjlistPage.pageSize;
+
+@RestController
 public class HoutaiContorller {
 
     @Autowired
@@ -86,10 +94,26 @@ public class HoutaiContorller {
     }
 
     //查询所有旅游国家列表
-    @GetMapping("/queryGJList")
-    public ResponseEntity<?> queryGJList(){
-        List<guojialist> list = houTaiService.queryGJList();
-        return new ResponseEntity<>(list,HttpStatus.OK);
+    @PostMapping("/queryGJList")
+    public ResponseEntity<?> queryGJList(String name,@RequestParam("iDisplayStart")int pageNo,@RequestParam("iDisplayLength")int pageSize){
+        String guoname = null;
+        if(name!=null) {
+            guoname = name;
+        }
+        List<guojialist> list = houTaiService.queryGJList(guoname,pageNo,pageSize);
+        JSONObject jo = new JSONObject();
+        int total = houTaiService.selectGJZS(guoname);
+        jo.put("data",list);
+        jo.put("iTotalDisplayRecords",total);
+        jo.put("iTotalRecords",total);
+        return new ResponseEntity<>(jo,HttpStatus.OK);
+    }
+
+    //查询旅游国家列表数量
+    @GetMapping("/queryGJZS")
+    public ResponseEntity<?> queryGJZS(String guoname){
+        int gjzs = houTaiService.selectGJZS(guoname);
+        return new ResponseEntity<>(gjzs,HttpStatus.OK);
     }
 
     //根据国家id查找单个国家
@@ -206,6 +230,5 @@ public class HoutaiContorller {
         int count = houTaiService.updTP(tp);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
-
 
 }

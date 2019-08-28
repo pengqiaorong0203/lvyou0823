@@ -54,8 +54,13 @@ public class HouTaiServiceImpl implements HouTaiService {
     }
 
     @Override
-    public List<guojialist> queryGJList() {
-        return houtaiMapper.queryGJList();
+    public List<guojialist> queryGJList(String guoname,int pageNo,int pageSize) {
+        return houtaiMapper.queryGJList(guoname,pageNo,pageSize);
+    }
+
+    @Override
+    public int selectGJZS(String guoname) {
+        return houtaiMapper.selectGJZS(guoname);
     }
 
     @Override

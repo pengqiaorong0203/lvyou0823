@@ -3,8 +3,6 @@ package com.newer.lvyou.mapper;
 import com.newer.lvyou.domain.*;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-
 
 import java.util.List;
 
@@ -41,11 +39,13 @@ public interface HoutaiMapper {
     @Delete("delete from jiudian where id = #{id}")
     public int delJD(@Param("id")int id);//删除酒店
 
-    @Select("select * from guojialist")
-    public List<guojialist> queryGJList();//查询所有国家列表
+    public List<guojialist> queryGJList(@Param("guoname")String guoname,@Param("pageNo")int pageNo,@Param("pageSize")int pageSize);//查询所有国家列表
 
     @Select("select * from guojialist where id = #{id}")
     public guojialist selectGJByid(@Param("id")int id);//根据国家id查询单个国家
+
+
+    public int selectGJZS(@Param("guoname")String guoname);//查询旅游国家总数
 
     @Insert("insert into guojialist(zhouname,guoname,tpurl,shuxing) values(#{zhouname},#{guoname},#{tpurl},#{shuxing})")
     public int addGJList(guojialist gjl);//添加新国家
