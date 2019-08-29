@@ -25,11 +25,13 @@ public class dingdan implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date xiadantime;//订单下单时间
+    private int feiyong;    //订单费用
+    private int guoid;      //绑定旅游国家id
 
     public dingdan() {
     }
 
-    public dingdan(int id, int uid, String uname, String phone, String email, Date time, int chengren, int ertong, String info, int state, int jiuid,Date xiadantime) {
+    public dingdan(int id, int uid, String uname, String phone, String email, Date time, int chengren, int ertong, String info, int state, int jiuid,Date xiadantime,int feiyong,int guoid) {
         this.id = id;
         this.uid = uid;
         this.uname = uname;
@@ -42,6 +44,8 @@ public class dingdan implements Serializable {
         this.state = state;
         this.jiuid = jiuid;
         this.xiadantime = xiadantime;
+        this.feiyong = feiyong;
+        this.guoid = guoid;
     }
 
     public static long getSerialVersionUID() {
@@ -144,6 +148,22 @@ public class dingdan implements Serializable {
         this.xiadantime = xiadantime;
     }
 
+    public int getFeiyong() {
+        return feiyong;
+    }
+
+    public void setFeiyong(int feiyong) {
+        this.feiyong = feiyong;
+    }
+
+    public int getGuoid() {
+        return guoid;
+    }
+
+    public void setGuoid(int guoid) {
+        this.guoid = guoid;
+    }
+
     @Override
     public String toString() {
         return "dingdan{" +
@@ -159,6 +179,8 @@ public class dingdan implements Serializable {
                 ", state=" + state +
                 ", jiuid=" + jiuid +
                 ", xiadantime=" + xiadantime +
+                ", feiyong=" + feiyong +
+                ", guoid=" + guoid +
                 '}';
     }
 }

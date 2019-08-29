@@ -8,15 +8,17 @@ public class tuandui implements Serializable {
     private String tname; //团队名
     private String info;  //团队描述
     private String toux;  //头像
+    private int shenhe;   //后台审核
 
     public tuandui() {
     }
 
-    public tuandui(int id, String tname, String info, String toux) {
+    public tuandui(int id, String tname, String info, String toux,int shenhe) {
         this.id = id;
         this.tname = tname;
         this.info = info;
         this.toux = toux;
+        this.shenhe = shenhe;
     }
 
     public static long getSerialVersionUID() {
@@ -55,6 +57,14 @@ public class tuandui implements Serializable {
         this.toux = toux;
     }
 
+    public int getShenhe() {
+        return shenhe;
+    }
+
+    public void setShenhe(int shenhe) {
+        this.shenhe = shenhe;
+    }
+
     @Override
     public String toString() {
         return "tuandui{" +
@@ -62,6 +72,7 @@ public class tuandui implements Serializable {
                 ", tname='" + tname + '\'' +
                 ", info='" + info + '\'' +
                 ", toux='" + toux + '\'' +
+                ", shenhe=" + shenhe +
                 '}';
     }
 }

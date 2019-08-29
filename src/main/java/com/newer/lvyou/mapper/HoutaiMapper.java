@@ -54,7 +54,7 @@ public interface HoutaiMapper {
     public int updGJList(guojialist gjl);//修改国家
 
     @Delete("delete from guojialist where id = #{id}")
-    public int delGJList(int id);//删除国家
+    public int delGJList(@Param("id")int id);//删除国家
 
     @Select("select * from lvyouxiangqing where guoid = #{guoid}")
     public lvyouxiangqing selectByGuoId(@Param("guoid")int guoid);//通过旅游国家id搜索旅游详情

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -142,8 +139,8 @@ public class HoutaiContorller {
     @GetMapping("/delGJList")
     public ResponseEntity<?> delGJList(int id){
         int count = houTaiService.delGJList(id);
-        houTaiService.delLYXQ(id);   //删除旅游国家时一起删除旅游详情
-        houTaiService.delJTXC(id);   //删除旅游国家时一起删除具体行程
+        //houTaiService.delLYXQ(id);   //删除旅游国家时一起删除旅游详情
+        //houTaiService.delJTXC(id);   //删除旅游国家时一起删除具体行程
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
