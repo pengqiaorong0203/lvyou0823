@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 登录
@@ -26,7 +27,7 @@ public class HoutaiAdminController {
     private HouTaiAdminService houTaiAdminService;
 
     /**
-     * 定义验证码字符串；
+     * 定义验证码字符串;
      */
     private String string;
 
@@ -82,5 +83,48 @@ public class HoutaiAdminController {
         response.setDateHeader("Expirs", 0);
         // 通过图片io流写出去
         ImageIO.write(bufimg, "JPEG", response.getOutputStream());
+    }
+
+    /**
+     * 查询管理员用户所有详细信息
+     * @return
+     */
+    @GetMapping("/findAlladmin")
+    public ResponseEntity<?> findAlladmin(){
+        List<admin> adminList = houTaiAdminService.findAlladmin();
+        /*System.out.println("所有管理员登录信息："+adminList);*/
+        return new ResponseEntity<>(adminList,HttpStatus.OK);
+    }
+
+    /**
+     * 统计管理员数量
+     * @return
+     */
+    @GetMapping("/adminCount")
+    public ResponseEntity<?> adminCount(){
+        int count = houTaiAdminService.adminCount();
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    /**
+     *删除管理员人员信息
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/adminDelete/{id}")
+    public ResponseEntity<?> adminDelete(Integer id){
+        int admindel = houTaiAdminService.adminDelete(id);
+        return new ResponseEntity<>(admindel,HttpStatus.OK);
+    }
+
+    /**
+     * 新增管理员人员信息
+     * @param admin
+     * @return
+     */
+    @PostMapping("/adminAdd")
+    public ResponseEntity<?> adminAdd(admin admin){
+        int adminadd = houTaiAdminService.adminAdd(admin);
+        return new ResponseEntity<>(adminadd,HttpStatus.OK);
     }
 }
