@@ -10,16 +10,18 @@ public class guojialist implements Serializable {
     private String guoname;  //国家名
     private String tpurl;    //国家图片
     private String shuxing;  //分类属性 1：推荐  2：热门
+    private int shenhe;      //后台审核
 
     public guojialist() {
     }
 
-    public guojialist(int id, String zhouname, String guoname, String tpurl, String shuxing) {
+    public guojialist(int id, String zhouname, String guoname, String tpurl, String shuxing,int shenhe) {
         this.id = id;
         this.zhouname = zhouname;
         this.guoname = guoname;
         this.tpurl = tpurl;
         this.shuxing = shuxing;
+        this.shenhe = shenhe;
     }
 
     public static long getSerialVersionUID() {
@@ -66,6 +68,14 @@ public class guojialist implements Serializable {
         this.shuxing = shuxing;
     }
 
+    public int getShenhe() {
+        return shenhe;
+    }
+
+    public void setShenhe(int shenhe) {
+        this.shenhe = shenhe;
+    }
+
     @Override
     public String toString() {
         return "guojialist{" +
@@ -74,6 +84,7 @@ public class guojialist implements Serializable {
                 ", guoname='" + guoname + '\'' +
                 ", tpurl='" + tpurl + '\'' +
                 ", shuxing='" + shuxing + '\'' +
+                ", shenhe=" + shenhe +
                 '}';
     }
 }
