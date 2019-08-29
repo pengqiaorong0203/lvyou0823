@@ -1,5 +1,6 @@
 package com.newer.lvyou.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.dingdan;
 import com.newer.lvyou.service.HouTaidingdanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,40 @@ public class HouTaidingdanController {
     public ResponseEntity<?> findAlldingdan(){
         List<dingdan> dingdanList = houTaidingdanService.findAlldingdan();
         return new ResponseEntity<>(dingdanList,HttpStatus.OK);
+    }
+
+    /**
+     * 根据国家uname进行分页
+     * @param name
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/queryDingdanList")
+    public ResponseEntity<?> queryDingdanList(String name,
+                                              @RequestParam("iDisplayStart")Integer pageNo,
+                                              @RequestParam("iDisplayLength")Integer pageSize){
+        String uname = null;
+        if (name!=null){
+            uname = name;
+        }
+        List<dingdan> dingdanList = houTaidingdanService.findAlldingdanFenYe(uname,pageNo,pageSize);
+        JSONObject jsonObject = new JSONObject();
+        int totol = houTaidingdanService.dingdanCount(uname);
+        jsonObject.put("data",dingdanList);
+        jsonObject.put("iTotalDisplayRecords",totol);
+        jsonObject.put("iTotalRecords",totol);
+        return new ResponseEntity<>(jsonObject,HttpStatus.OK);
+    }
+
+    /**
+     * 统计订单总数量
+     * @return
+     */
+    @GetMapping("/dingdanCount")
+    public ResponseEntity<?> dingdanCount(String uname){
+        int count = houTaidingdanService.dingdanCount(uname);
+        return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
     /**
@@ -60,12 +95,14 @@ public class HouTaidingdanController {
     }
 
     /**
-     * 统计订单总数量
+     * 根据订单id查询单条订单信息
+     * @param id
      * @return
      */
-    @GetMapping("/dingdanCount")
-    public ResponseEntity<?> dingdanCount(){
-        int count = houTaidingdanService.dingdanCount();
-        return new ResponseEntity<>(count,HttpStatus.OK);
+    @GetMapping("/dingdanSelect")
+    public ResponseEntity<?> dingdanSelect(Integer id){
+        dingdan dingdan = houTaidingdanService.dingdanSelect(id);
+        /*System.out.println("查询到当前对象为："+dingdan);*/
+        return new ResponseEntity<>(dingdan,HttpStatus.OK);
     }
 }

@@ -14,6 +14,23 @@ public interface HouTaidingdanService {
     public List<dingdan> findAlldingdan();
 
     /**
+     * 根据国家uname进行分页
+     * @param uname
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public List<dingdan> findAlldingdanFenYe(@Param("uname") String uname,
+                                             @Param("pageNo")Integer pageNo,
+                                             @Param("pageSize")Integer pageSize);
+
+    /**
+     * 统计订单总数量
+     * @return
+     */
+    public int dingdanCount(String uname);
+
+    /**
      *新增订单信息
      * @return
      */
@@ -34,8 +51,9 @@ public interface HouTaidingdanService {
     public int dingdanUpdate(dingdan dingdan);
 
     /**
-     * 统计订单总数量
+     * 根据订单id查询单条订单信息
+     * @param id
      * @return
      */
-    public int dingdanCount();
+    public dingdan dingdanSelect(@Param("id") Integer id);
 }

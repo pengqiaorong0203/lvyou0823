@@ -1,10 +1,7 @@
 package com.newer.lvyou.mapper;
 
 import com.newer.lvyou.domain.pingjia;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,6 +15,17 @@ public interface HouTaipingjiaMapper {
      */
     @Select("select * from pingjia")
     public List<pingjia> findAllpingjia();
+
+    /**
+     * 根据用户评价中的国家名字进行分页
+     * @param guoname
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public List<pingjia> findAllpingjiaFenYe(@Param("guoname") String guoname,
+                                             @Param("pageNo") int pageNo,
+                                             @Param("pageSize") int pageSize);
 
     /**
      *新增用户评价信息
@@ -49,6 +57,5 @@ public interface HouTaipingjiaMapper {
      * 统计用户评价总数量
      * @return
      */
-    @Select("select count(*) from pingjia")
-    public int pingjiaCount();
+    public int pingjiaCount(String guoname);
 }
