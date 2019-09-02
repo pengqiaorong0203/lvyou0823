@@ -17,6 +17,17 @@ public interface HouTaiUserMapper {
     public List<user> findAllUser();
 
     /**
+     * 根据用户姓名进行分页显示;
+     * @param username
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public List<user> findAllUserFenYe(@Param("username") String username,
+                                       @Param("pageNo")Integer pageNo,
+                                       @Param("pageSize")Integer pageSize);
+
+    /**
      * 新增用户信息
      * @param user
      * @return
@@ -30,20 +41,27 @@ public interface HouTaiUserMapper {
      * @return
      */
     @Delete("delete from user where id=#{id}")
-    public int userDelete(@Param("id") Integer id);
+    public int userDelete(Integer id);
 
     /**
      * 修改用户个人信息
      * @param user
      * @return
      */
-    @Update("updata user set username=#{username},pwd=#{pwd},phone=#{phone},sex=#{sex} where id=#{id}")
+    @Update("update user set username=#{username},phone=#{phone} where id=#{id}")
     public int userUpdate(user user);
 
     /**
      * 统计用户总数量
      * @return
      */
-    @Select("select count(*) from user")
-    public int userCount();
+    public int userCount(@Param("username")String username);
+
+    /**
+     * 根据id查询单条用户信息
+     * @param id
+     * @return
+     */
+    @Select("select * from user where id=#{id}")
+    public user findOneUser(Integer id);
 }

@@ -14,7 +14,7 @@ public interface HouTaiAdminService {
      * @param pwd
      * @return
      */
-    public admin findBynamePassword(@Param("name") String name, @Param("pwd") String pwd);
+    public admin findBynamePassword(@Param("name") String name,@Param("pwd")String pwd);
 
     /**
      * 查询管理员用户所有详细信息
@@ -23,10 +23,21 @@ public interface HouTaiAdminService {
     public List<admin> findAlladmin();
 
     /**
+     * 管理员用户分页
+     * @param name
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public List<admin> findAllAdminFenYe(@Param("name") String name,
+                                         @Param("pageNo")Integer pageNo,
+                                         @Param("pageSize")Integer pageSize);
+
+    /**
      * 统计管理员数量
      * @return
      */
-    public int adminCount();
+    public int adminCount(@Param("name")String name);
 
     /**
      * 删除管理员人员信息
@@ -41,4 +52,19 @@ public interface HouTaiAdminService {
      * @return
      */
     public int adminAdd(admin admin);
+
+    /**
+     * 根据用户名修改用户密码
+     * @param name
+     * @param pwd
+     * @return
+     */
+    public int adminUpdate(String name,String pwd);
+
+    /**
+     *根据登录管理员id查询详细信息
+     * @param id
+     * @return
+     */
+    public admin adminSelectOne(@Param("id") Integer id);
 }

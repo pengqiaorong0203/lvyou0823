@@ -28,7 +28,7 @@ public interface HouTaipingjiaService {
      * 统计用户评价总数量
      * @return
      */
-    public int pingjiaCount(String guoname);
+    public int pingjiaCount(@Param("guoname")String guoname);
 
     /**
      *新增用户评价信息

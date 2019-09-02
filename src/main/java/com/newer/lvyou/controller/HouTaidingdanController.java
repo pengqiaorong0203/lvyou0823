@@ -2,12 +2,14 @@ package com.newer.lvyou.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.dingdan;
+import com.newer.lvyou.domain.user;
 import com.newer.lvyou.service.HouTaidingdanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -36,15 +38,28 @@ public class HouTaidingdanController {
      */
     @GetMapping("/queryDingdanList")
     public ResponseEntity<?> queryDingdanList(String name,
+                                              String beginDate,
+                                              String endDate,
                                               @RequestParam("iDisplayStart")Integer pageNo,
                                               @RequestParam("iDisplayLength")Integer pageSize){
         String uname = null;
         if (name!=null){
             uname = name;
         }
-        List<dingdan> dingdanList = houTaidingdanService.findAlldingdanFenYe(uname,pageNo,pageSize);
+        System.out.println("用户姓名:"+uname);
+        System.out.println("下单开始时间:"+beginDate);
+        System.out.println("下单结束时间:"+endDate);
+        List<dingdan> dingdanList = houTaidingdanService.findAlldingdanFenYe(uname,pageNo,pageSize,beginDate,endDate);
+        for (dingdan cards :dingdanList){//循环遍历集合，将集合中的值重新赋值在页面上
+            //用户邮箱传到前端页面做处理
+            String mailbox = cards.getEmail().substring(0,8);
+            cards.setEmail(cards.getEmail().replaceAll(mailbox,"*********"));
+            //用户手机号码传到前端页面做处理
+            String phone = cards.getPhone().substring(3,8);
+            cards.setPhone(cards.getPhone().replaceAll(phone,"****"));
+        }
         JSONObject jsonObject = new JSONObject();
-        int totol = houTaidingdanService.dingdanCount(uname);
+        int totol = houTaidingdanService.dingdanCount(uname,beginDate,endDate);
         jsonObject.put("data",dingdanList);
         jsonObject.put("iTotalDisplayRecords",totol);
         jsonObject.put("iTotalRecords",totol);
@@ -56,10 +71,12 @@ public class HouTaidingdanController {
      * @return
      */
     @GetMapping("/dingdanCount")
-    public ResponseEntity<?> dingdanCount(String uname){
-        int count = houTaidingdanService.dingdanCount(uname);
+    public ResponseEntity<?> dingdanCount(String uname, String beginDate,String endDate){
+        int count = houTaidingdanService.dingdanCount(uname,beginDate,endDate);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
+
+
 
     /**
      * 新增订单信息
@@ -77,7 +94,7 @@ public class HouTaidingdanController {
      * @param id
      * @return
      */
-    @DeleteMapping("/dingdanDelete/{id}")
+    @DeleteMapping("/dingdanDelete")
     public ResponseEntity<?> dingdanDelete(Integer id){
         int i = houTaidingdanService.dingdanDelete(id);
         return new ResponseEntity<>(i,HttpStatus.OK);
