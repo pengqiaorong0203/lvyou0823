@@ -9,13 +9,13 @@ public class guojialist implements Serializable {
     private String zhouname; //大洲名
     private String guoname;  //国家名
     private String tpurl;    //国家图片
-    private String shuxing;  //分类属性 1：推荐  2：热门
+    private int shuxing;  //分类属性 1：推荐  2：热门
     private int shenhe;      //后台审核
 
     public guojialist() {
     }
 
-    public guojialist(int id, String zhouname, String guoname, String tpurl, String shuxing,int shenhe) {
+    public guojialist(int id, String zhouname, String guoname, String tpurl, int shuxing,int shenhe) {
         this.id = id;
         this.zhouname = zhouname;
         this.guoname = guoname;
@@ -60,11 +60,11 @@ public class guojialist implements Serializable {
         this.tpurl = tpurl;
     }
 
-    public String getShuxing() {
+    public int getShuxing() {
         return shuxing;
     }
 
-    public void setShuxing(String shuxing) {
+    public void setShuxing(int shuxing) {
         this.shuxing = shuxing;
     }
 

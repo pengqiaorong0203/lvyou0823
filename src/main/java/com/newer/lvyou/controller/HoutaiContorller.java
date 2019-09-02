@@ -1,6 +1,5 @@
 package com.newer.lvyou.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
@@ -9,13 +8,17 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
-
-import static com.newer.lvyou.domain.GjlistPage.pageSize;
 
 @RestController
 public class HoutaiContorller {
+
+    @Autowired
+    private HttpServletRequest request;
 
     @Autowired
     private HouTaiService houTaiService;
@@ -122,7 +125,29 @@ public class HoutaiContorller {
 
     //新增旅游国家
     @PostMapping("/addGJList")
-    public ResponseEntity<?> addGJList(guojialist gjl){
+    public ResponseEntity<?> addGJList(@RequestParam(value = "file",required = false)MultipartFile file,
+                                       @RequestParam("guoname")String guoname,
+                                       @RequestParam("zhouname")String zhouname,
+                                       @RequestParam("shuxing")int shuxing){
+        String filePath = null;
+        if (!file.isEmpty()) {
+            try {
+                // 文件保存路径
+                filePath = "D:/nginx-1.16.0/html/lvyou/img/"+zhouname+"/"+guoname+".jpg";
+                System.out.println(filePath);
+                // 转存文件
+                file.transferTo(new File(filePath));
+                filePath = "img/"+zhouname+"/"+guoname+".jpg";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        guojialist gjl = new guojialist();
+        gjl.setGuoname(guoname);
+        gjl.setZhouname(zhouname);
+        gjl.setShuxing(shuxing);
+        gjl.setTpurl(filePath);
+        gjl.setShenhe(0);
         int count = houTaiService.addGJList(gjl);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
