@@ -47,10 +47,10 @@ public interface HoutaiMapper {
 
     public int selectGJZS(@Param("guoname")String guoname);//查询旅游国家总数
 
-    @Insert("insert into guojialist(zhouname,guoname,tpurl,shuxing) values(#{zhouname},#{guoname},#{tpurl},#{shuxing})")
+    @Insert("insert into guojialist(zhouname,guoname,tpurl,shuxing,shenhe) values(#{zhouname},#{guoname},#{tpurl},#{shuxing},#{shenhe})")
     public int addGJList(guojialist gjl);//添加新国家
 
-    @Update("update guojialist set zhouname = #{zhouname},guoname = #{guoname},tpurl = #{tpurl},shuxing = #{shuxing} where id = #{id}")
+    @Update("update guojialist set zhouname = #{zhouname},guoname = #{guoname},tpurl = #{tpurl},shuxing = #{shuxing},shenhe = #{shenhe} where id = #{id}")
     public int updGJList(guojialist gjl);//修改国家
 
     @Delete("delete from guojialist where id = #{id}")
