@@ -1,6 +1,7 @@
 package com.newer.lvyou.service;
 
 import com.newer.lvyou.domain.pingjia;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,6 +12,23 @@ public interface HouTaipingjiaService {
      * @return
      */
     public List<pingjia> findAllpingjia();
+
+    /**
+     * 根据用户评价中的国家名字进行分页
+     * @param guoname
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public List<pingjia> findAllpingjiaFenYe(@Param("guoname") String guoname,
+                                             @Param("pageNo") int pageNo,
+                                             @Param("pageSize") int pageSize);
+
+    /**
+     * 统计用户评价总数量
+     * @return
+     */
+    public int pingjiaCount(String guoname);
 
     /**
      *新增用户评价信息
@@ -32,10 +50,4 @@ public interface HouTaipingjiaService {
      * @return
      */
     public int pinjiaUpdate(pingjia pingjia);
-
-    /**
-     * 统计用户评价总数量
-     * @return
-     */
-    public int pingjiaCount();
 }

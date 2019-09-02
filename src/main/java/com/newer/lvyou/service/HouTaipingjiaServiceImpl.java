@@ -23,6 +23,27 @@ public class HouTaipingjiaServiceImpl implements HouTaipingjiaService{
     }
 
     /**
+     * 根据用户评价中的国家名字进行分页
+     * @param guoname
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<pingjia> findAllpingjiaFenYe(String guoname, int pageNo, int pageSize) {
+        return houTaipingjiaMapper.findAllpingjiaFenYe(guoname,pageNo,pageSize);
+    }
+
+    /**
+     * 统计用户评价总数量
+     * @return
+     */
+    @Override
+    public int pingjiaCount(String guoname) {
+        return houTaipingjiaMapper.pingjiaCount(guoname);
+    }
+
+    /**
      * 新增用户评价信息
      * @param pingjia
      * @return
@@ -52,12 +73,4 @@ public class HouTaipingjiaServiceImpl implements HouTaipingjiaService{
         return houTaipingjiaMapper.pinjiaUpdate(pingjia);
     }
 
-    /**
-     * 统计用户评价总数量
-     * @return
-     */
-    @Override
-    public int pingjiaCount() {
-        return houTaipingjiaMapper.pingjiaCount();
-    }
 }

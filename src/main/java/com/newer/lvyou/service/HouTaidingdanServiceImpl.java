@@ -23,6 +23,18 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
     }
 
     /**
+     * 根据国家uname进行分页
+     * @param uname
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<dingdan> findAlldingdanFenYe(String uname, Integer pageNo, Integer pageSize) {
+        return houTaidingdanMapper.findAlldingdanFenYe(uname,pageNo,pageSize);
+    }
+
+    /**
      * 新增订单信息
      * @param dingdan
      * @return
@@ -53,11 +65,21 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
     }
 
     /**
+     * 根据订单id查询单条订单信息
+     * @param id
+     * @return
+     */
+    @Override
+    public dingdan dingdanSelect(Integer id) {
+        return houTaidingdanMapper.dingdanSelect(id);
+    }
+
+    /**
      * 统计订单总数量
      * @return
      */
     @Override
-    public int dingdanCount() {
-        return houTaidingdanMapper.dingdanCount();
+    public int dingdanCount(String uname) {
+        return houTaidingdanMapper.dingdanCount(uname);
     }
 }
