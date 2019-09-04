@@ -11,17 +11,19 @@ public class jutixingcheng implements Serializable {
     private String xingchengurl;     //行程图片
     private String xingchengmiaoshu; //行程具体描述
     private int jiuid;               //酒店id
+    private String guoname;          //国家名称
 
     public jutixingcheng() {
     }
 
-    public jutixingcheng(int id, int guoid, String xingcheng, String xingchengurl, String xingchengmiaoshu, int jiuid) {
+    public jutixingcheng(int id, int guoid, String xingcheng, String xingchengurl, String xingchengmiaoshu, int jiuid,String guoname) {
         this.id = id;
         this.guoid = guoid;
         this.xingcheng = xingcheng;
         this.xingchengurl = xingchengurl;
         this.xingchengmiaoshu = xingchengmiaoshu;
         this.jiuid = jiuid;
+        this.guoname = guoname;
     }
 
     public static long getSerialVersionUID() {
@@ -76,6 +78,14 @@ public class jutixingcheng implements Serializable {
         this.jiuid = jiuid;
     }
 
+    public String getGuoname() {
+        return guoname;
+    }
+
+    public void setGuoname(String guoname) {
+        this.guoname = guoname;
+    }
+
     @Override
     public String toString() {
         return "jutixingcheng{" +
@@ -85,6 +95,7 @@ public class jutixingcheng implements Serializable {
                 ", xingchengurl='" + xingchengurl + '\'' +
                 ", xingchengmiaoshu='" + xingchengmiaoshu + '\'' +
                 ", jiuid=" + jiuid +
+                ", guoname='" + guoname + '\'' +
                 '}';
     }
 }

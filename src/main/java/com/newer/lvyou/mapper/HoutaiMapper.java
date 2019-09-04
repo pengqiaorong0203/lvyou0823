@@ -48,6 +48,7 @@ public interface HoutaiMapper {
     public int selectGJZS(@Param("guoname")String guoname);//查询旅游国家总数
 
     @Insert("insert into guojialist(zhouname,guoname,tpurl,shuxing,shenhe) values(#{zhouname},#{guoname},#{tpurl},#{shuxing},#{shenhe})")
+    @SelectKey(statement="select max(id) from guojialist", keyProperty="id", before=false, resultType=int.class)
     public int addGJList(guojialist gjl);//添加新国家
 
     @Update("update guojialist set zhouname = #{zhouname},guoname = #{guoname},tpurl = #{tpurl},shuxing = #{shuxing},shenhe = #{shenhe} where id = #{id}")
@@ -59,22 +60,22 @@ public interface HoutaiMapper {
     @Select("select * from lvyouxiangqing where guoid = #{guoid}")
     public lvyouxiangqing selectByGuoId(@Param("guoid")int guoid);//通过旅游国家id搜索旅游详情
 
-    @Insert("insert into lvyouxiangqing(guoid,guoname,guotpurl,info,liangdian,feiyong,feiyongmingxi,gengduo) values(#{guoid},#{guoname},#{guotpurl},#{info},#{liangdian},#{feiyong},#{feiyongmingxi},#{gengduo})")
+    @Insert("insert into lvyouxiangqing(guoid,guoname,guotpurl,info,liangdian,feiyong) values(#{guoid},#{guoname},#{guotpurl},#{info},#{liangdian},#{feiyong})")
     public int addLYXQ(lvyouxiangqing lyxq);//添加旅游详情
 
-    @Update("update lvyouxiangqing set guoid = #{guoid},guoname = #{guoname},guotpurl = #{guotpurl},info = #{info},liangdian = #{liangdian},feiyong = #{feiyong},feiyongmingxi = #{feiyongmingxi},gengduo = #{gengduo}")
+    @Update("update lvyouxiangqing set guoid = #{guoid},guoname = #{guoname},guotpurl = #{guotpurl},info = #{info},liangdian = #{liangdian},feiyong = #{feiyong} where guoid=#{guoid}")
     public int updLYXQ(lvyouxiangqing lyxq);//修改旅游详情
 
     @Delete("delete from lvyouxiangqing where guoid = #{guoid}")
     public int delLYXQ(@Param("guoid")int guoid);//根据旅游国家id删除旅游详情
 
-    @Select("select * from jutixingcheng where guoid = #{guoid}")
+    @Select("select xc.id,xc.guoid,xc.xingcheng,xc.xingchengmiaoshu,xc.xingchengurl,xc.jiuid,gj.guoname from jutixingcheng xc,guojialist gj where xc.guoid = #{guoid} and xc.guoid = gj.id")
     public List<jutixingcheng> selectJTXC(@Param("guoid")int guoid);//通过旅游国家id搜索具体行程
 
-    @Insert("insert into jutixingcheng(guoid,xingcheng,xingchengurl,xingchengmiaoshu) values(#{guoid},#{xingcheng},#{xingchengurl},#{xinghengmiaoshu})")
+    @Insert("insert into jutixingcheng(guoid,xingcheng,xingchengmiaoshu) values(#{guoid},#{xingcheng},#{xingchengmiaoshu})")
     public int addJTXC(jutixingcheng jtxc);//添加具体行程
 
-    @Update("update jutixingcheng set guoid = #{guoid},xingcheng = #{xingcheng},xingchengurl = #{xingchengurl},xingchengmiaoshu = #{xingchengmiaoshu}")
+    @Update("update jutixingcheng set guoid = #{guoid},xingcheng = #{xingcheng},xingchengurl = #{xingchengurl},xingchengmiaoshu = #{xingchengmiaoshu} where id = #{id}")
     public int updJTXC(jutixingcheng jtxc);//修改具体行程
 
     @Delete("delete from jutixingcheng where guoid = #{guoid}")

@@ -1,10 +1,11 @@
 package com.newer.lvyou.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.mysql.cj.xdevapi.JsonArray;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -149,12 +150,44 @@ public class HoutaiContorller {
         gjl.setTpurl(filePath);
         gjl.setShenhe(0);
         int count = houTaiService.addGJList(gjl);
-        return new ResponseEntity<>(count,HttpStatus.OK);
+        System.out.println(gjl.getId());
+        int id = gjl.getId();
+        return new ResponseEntity<>(id,HttpStatus.OK);
     }
 
     //修改旅游国家
     @PostMapping("/updGJList")
-    public ResponseEntity<?> updGJList(guojialist gjl){
+    public ResponseEntity<?> updGJList(@RequestParam(value = "file",required = false)MultipartFile file,
+                                       @RequestParam("guoname")String guoname,
+                                       @RequestParam("zhouname")String zhouname,
+                                       @RequestParam("shuxing")int shuxing,
+                                       @RequestParam("id")int id,
+                                       @RequestParam("tp")String tp){
+        String filePath = null;
+        if(file!=null) {
+            if (!file.isEmpty()) {
+                try {
+                    // 文件保存路径
+                    filePath = "D:/nginx-1.16.0/html/lvyou/img/" + zhouname + "/" + guoname + ".jpg";
+                    System.out.println(filePath);
+                    // 转存文件
+                    file.transferTo(new File(filePath));
+                    filePath = "img/" + zhouname + "/" + guoname + ".jpg";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else{
+            filePath = tp;
+        }
+        guojialist gjl = new guojialist();
+        gjl.setId(id);
+        gjl.setGuoname(guoname);
+        gjl.setZhouname(zhouname);
+        gjl.setShuxing(shuxing);
+        gjl.setTpurl(filePath);
+        gjl.setShenhe(0);
+        System.out.println(gjl);
         int count = houTaiService.updGJList(gjl);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
@@ -164,8 +197,22 @@ public class HoutaiContorller {
     @GetMapping("/delGJList")
     public ResponseEntity<?> delGJList(int id){
         int count = houTaiService.delGJList(id);
-        //houTaiService.delLYXQ(id);   //删除旅游国家时一起删除旅游详情
-        //houTaiService.delJTXC(id);   //删除旅游国家时一起删除具体行程
+        houTaiService.delLYXQ(id);   //删除旅游国家时一起删除旅游详情
+        houTaiService.delJTXC(id);   //删除旅游国家时一起删除具体行程
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //批量删除旅游国家
+    @GetMapping("/pldeleteGJList")
+    public ResponseEntity<?> pldeleteGJList(@RequestParam("xzadmin")String tp){
+        JSONArray ja = JSONArray.parseArray(tp);
+        int count = 0;
+        for(Object obj : ja){
+            int id = (int)obj;
+            count =  houTaiService.delGJList(id);
+            houTaiService.delLYXQ(id);   //删除旅游国家时一起删除旅游详情
+            houTaiService.delJTXC(id);   //删除旅游国家时一起删除具体行程
+        }
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
@@ -173,20 +220,81 @@ public class HoutaiContorller {
     @GetMapping("/queryByGuoId")
     public ResponseEntity<?> queryByGuoId(int guoid){
         lvyouxiangqing lyxq = houTaiService.selectByGuoId(guoid);
-        return new ResponseEntity<>(lyxq,HttpStatus.OK);
+        if(lyxq==null){
+            return new ResponseEntity<>(1,HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(lyxq, HttpStatus.OK);
+        }
     }
 
     //添加旅游详情
-    @PostMapping("/addLVXQ")
-    public ResponseEntity<?> addLVXQ(lvyouxiangqing lyxq){
+    @PostMapping("/addLYXQ")
+    public ResponseEntity<?> addLYXQ(@RequestParam(value = "file",required = false)MultipartFile file,
+                                     @RequestParam("guoname")String guoname,
+                                     @RequestParam("info")String info,
+                                     @RequestParam("feiyong")int feiyong,
+                                     @RequestParam("guoid")int guoid,
+                                     @RequestParam("zhouname")String zhouname,
+                                     @RequestParam("liangdian")String liangdian){
+        String filePath = null;
+        if (!file.isEmpty()) {
+            try {
+                // 文件保存路径
+                filePath = "D:/nginx-1.16.0/html/lvyou/img/"+zhouname+"/xq"+guoname+".jpg";
+                System.out.println(filePath);
+                // 转存文件
+                file.transferTo(new File(filePath));
+                filePath = "img/"+zhouname+"/xq"+guoname+".jpg";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        lvyouxiangqing lyxq = new lvyouxiangqing();
+        lyxq.setGuoid(guoid);
+        lyxq.setGuoname(guoname);
+        lyxq.setGuotpurl(filePath);
+        lyxq.setInfo(info);
+        lyxq.setLiangdian(liangdian);
+        lyxq.setFeiyong(feiyong);
         int count = houTaiService.addLYXQ(lyxq);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
     //修改旅游详情
-    @PostMapping("/updLVXQ")
-    public ResponseEntity<?> updLVXQ(lvyouxiangqing lvyq){
-        int count = houTaiService.updLYXQ(lvyq);
+    @PostMapping("/updLYXQ")
+    public ResponseEntity<?> updLYXQ(@RequestParam(value = "file",required = false)MultipartFile file,
+                                     @RequestParam("guoname")String guoname,
+                                     @RequestParam("info")String info,
+                                     @RequestParam("feiyong")int feiyong,
+                                     @RequestParam("guoid")int guoid,
+                                     @RequestParam("zhouname")String zhouname,
+                                     @RequestParam("tp")String tp,
+                                     @RequestParam("liangdian")String liangdian){
+        String filePath = null;
+        if(file!=null) {
+            if (!file.isEmpty()) {
+                try {
+                    // 文件保存路径
+                    filePath = "D:/nginx-1.16.0/html/lvyou/img/" + zhouname + "/xq" + guoname + ".jpg";
+                    System.out.println(filePath);
+                    // 转存文件
+                    file.transferTo(new File(filePath));
+                    filePath = "img/" + zhouname + "/xq" + guoname + ".jpg";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else{
+            filePath = tp;
+        }
+        lvyouxiangqing lyxq = new lvyouxiangqing();
+        lyxq.setGuoid(guoid);
+        lyxq.setGuoname(guoname);
+        lyxq.setGuotpurl(filePath);
+        lyxq.setInfo(info);
+        lyxq.setLiangdian(liangdian);
+        lyxq.setFeiyong(feiyong);
+        int count = houTaiService.updLYXQ(lyxq);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
@@ -201,7 +309,14 @@ public class HoutaiContorller {
     @GetMapping("/queryJTXC")
     public ResponseEntity<?> queryJTXC(int guoid){
         List<jutixingcheng> list = houTaiService.selectJTXC(guoid);
-        return new ResponseEntity<>(list,HttpStatus.OK);
+        JSONObject jo = new JSONObject();
+        jo.put("data",list);
+        jo.put("iTotalDisplayRecords",10);
+        jo.put("iTotalRecords",10);
+        if(list.size()==0){
+            return new ResponseEntity<>(0,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(jo,HttpStatus.OK);
     }
 
     //添加新行程
