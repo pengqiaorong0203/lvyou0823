@@ -1,6 +1,7 @@
 package com.newer.lvyou.mapper;
 
 import com.newer.lvyou.domain.guojialist;
+import com.newer.lvyou.domain.lvyouxiangqing;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -12,5 +13,17 @@ public interface QianTaiMapper {
 
     @Select("select * from guojialist where zhouname = #{zhouname}")
     public List<guojialist> selectGJByZname(@Param("zhouname")String zhouname); //根据洲名字便利国家
+
+    @Select("select * from guojialist where  id= #{id}")
+    public guojialist selectGJByid(@Param("id")int id); //根据id拿值
+
+    @Select("select * from guojialist ")
+    public List<guojialist> selectAllGJ();
+
+    @Select("SELECT * FROM guojialist WHERE shenhe='1' LIMIT 8 ")
+    public List<guojialist> selectGJ6(); //取前8条数据
+
+    @Select("SELECT * FROM lvyouxiangqing  LIMIT 6 ")
+    public List<lvyouxiangqing> selectlvxiang6(); //取前6条数据
 
 }
