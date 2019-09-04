@@ -35,12 +35,24 @@ public class HouTaiAdminServiceImpl implements HouTaiAdminService{
     }
 
     /**
+     * 管理员用户分页
+     * @param name
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<admin> findAllAdminFenYe(String name, Integer pageNo, Integer pageSize) {
+        return houTaiAdminMapper.findAllAdminFenYe(name,pageNo,pageSize);
+    }
+
+    /**
      * 统计管理员数量
      * @return
      */
     @Override
-    public int adminCount() {
-        return houTaiAdminMapper.adminCount();
+    public int adminCount(String name) {
+        return houTaiAdminMapper.adminCount(name);
     }
 
     /**
@@ -61,5 +73,26 @@ public class HouTaiAdminServiceImpl implements HouTaiAdminService{
     @Override
     public int adminAdd(admin admin) {
         return houTaiAdminMapper.adminAdd(admin);
+    }
+
+    /**
+     * 根据用户名修改用户密码
+     * @param name
+     * @param pwd
+     * @return
+     */
+    @Override
+    public int adminUpdate(String name, String pwd) {
+        return houTaiAdminMapper.adminUpdate(name,pwd);
+    }
+
+    /**
+     * 根据订单id查询单条订单信息
+     * @param id
+     * @return
+     */
+    @Override
+    public admin adminSelectOne(Integer id) {
+        return houTaiAdminMapper.adminSelectOne(id);
     }
 }

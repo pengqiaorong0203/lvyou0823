@@ -5,6 +5,7 @@ import com.newer.lvyou.mapper.HouTaidingdanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,8 +31,8 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
      * @return
      */
     @Override
-    public List<dingdan> findAlldingdanFenYe(String uname, Integer pageNo, Integer pageSize) {
-        return houTaidingdanMapper.findAlldingdanFenYe(uname,pageNo,pageSize);
+    public List<dingdan> findAlldingdanFenYe(String uname, Integer pageNo, Integer pageSize, String beginDate,String endDate) {
+        return houTaidingdanMapper.findAlldingdanFenYe(uname,pageNo,pageSize,beginDate,endDate);
     }
 
     /**
@@ -79,7 +80,7 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
      * @return
      */
     @Override
-    public int dingdanCount(String uname) {
-        return houTaidingdanMapper.dingdanCount(uname);
+    public int dingdanCount(String uname,String beginDate,String endDate) {
+        return houTaidingdanMapper.dingdanCount(uname,beginDate,endDate);
     }
 }

@@ -57,5 +57,5 @@ public interface HouTaipingjiaMapper {
      * 统计用户评价总数量
      * @return
      */
-    public int pingjiaCount(String guoname);
+    public int pingjiaCount(@Param("guoname") String guoname);
 }

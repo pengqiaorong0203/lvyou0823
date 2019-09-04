@@ -41,6 +41,8 @@ public class HouTaipingjiaController {
         if(name!=null) {
             guoname = name;
         }
+        System.out.println("1:"+guoname);
+        System.out.println("2:"+name);
         List<pingjia> list = houTaipingjiaService.findAllpingjiaFenYe(guoname,pageNo,pageSize);
         JSONObject jo = new JSONObject();
         int total = houTaipingjiaService.pingjiaCount(guoname);

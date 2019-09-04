@@ -3,6 +3,7 @@ package com.newer.lvyou.service;
 import com.newer.lvyou.domain.dingdan;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface HouTaidingdanService {
@@ -22,13 +23,17 @@ public interface HouTaidingdanService {
      */
     public List<dingdan> findAlldingdanFenYe(@Param("uname") String uname,
                                              @Param("pageNo")Integer pageNo,
-                                             @Param("pageSize")Integer pageSize);
+                                             @Param("pageSize")Integer pageSize,
+                                             @Param("beginDate")String beginDate,
+                                             @Param("endDate")String endDate);
 
     /**
-     * 统计订单总数量
+     * 统计订单总数
      * @return
      */
-    public int dingdanCount(String uname);
+    public int dingdanCount(@Param("uname")String uname,
+                            @Param("beginDate")String beginDate,
+                            @Param("endDate")String endDate);
 
     /**
      *新增订单信息

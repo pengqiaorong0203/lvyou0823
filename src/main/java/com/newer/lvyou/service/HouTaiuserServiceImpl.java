@@ -23,6 +23,18 @@ public class HouTaiuserServiceImpl implements HouTaiuserService{
     }
 
     /**
+     * 根据用户姓名进行分页显示
+     * @param username
+     * @param pageNO
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public List<user> findAllUserFenYe(String username, Integer pageNO, Integer pageSize) {
+        return houTaiUserMapper.findAllUserFenYe(username,pageNO,pageSize);
+    }
+
+    /**
      * 新增用户信息
      * @param user
      * @return
@@ -57,7 +69,17 @@ public class HouTaiuserServiceImpl implements HouTaiuserService{
      * @return
      */
     @Override
-    public int userCount() {
-        return houTaiUserMapper.userCount();
+    public int userCount(String username) {
+        return houTaiUserMapper.userCount(username);
+    }
+
+    /**
+     * 根据id查询单条用户信息
+     * @param id
+     * @return
+     */
+    @Override
+    public user findOneUser(Integer id) {
+        return houTaiUserMapper.findOneUser(id);
     }
 }
