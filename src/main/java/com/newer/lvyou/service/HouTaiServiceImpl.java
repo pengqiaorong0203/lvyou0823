@@ -104,6 +104,11 @@ public class HouTaiServiceImpl implements HouTaiService {
     }
 
     @Override
+    public jutixingcheng selectOneJTXC(int id) {
+        return houtaiMapper.selectOneJTXC(id);
+    }
+
+    @Override
     public int addJTXC(jutixingcheng jtxc) {
         return houtaiMapper.addJTXC(jtxc);
     }
@@ -116,6 +121,11 @@ public class HouTaiServiceImpl implements HouTaiService {
     @Override
     public int delJTXC(int guoid) {
         return houtaiMapper.delJTXC(guoid);
+    }
+
+    @Override
+    public int delOneJTXC(int id) {
+        return houtaiMapper.delOneJTXC(id);
     }
 
     @Override

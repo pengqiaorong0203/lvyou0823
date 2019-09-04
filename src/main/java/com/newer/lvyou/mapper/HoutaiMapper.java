@@ -72,6 +72,9 @@ public interface HoutaiMapper {
     @Select("select xc.id,xc.guoid,xc.xingcheng,xc.xingchengmiaoshu,xc.xingchengurl,xc.jiuid,gj.guoname from jutixingcheng xc,guojialist gj where xc.guoid = #{guoid} and xc.guoid = gj.id")
     public List<jutixingcheng> selectJTXC(@Param("guoid")int guoid);//通过旅游国家id搜索具体行程
 
+    @Select("select xc.id,xc.guoid,xc.xingcheng,xc.xingchengmiaoshu,xc.xingchengurl,xc.jiuid,gj.guoname from jutixingcheng xc,guojialist gj where xc.id = #{id} and xc.guoid = gj.id")
+    public jutixingcheng selectOneJTXC(@Param("id")int id);//通过具体行程id搜索单条具体行程
+
     @Insert("insert into jutixingcheng(guoid,xingcheng,xingchengmiaoshu) values(#{guoid},#{xingcheng},#{xingchengmiaoshu})")
     public int addJTXC(jutixingcheng jtxc);//添加具体行程
 
@@ -80,6 +83,9 @@ public interface HoutaiMapper {
 
     @Delete("delete from jutixingcheng where guoid = #{guoid}")
     public int delJTXC(@Param("guoid")int guoid);//通过旅游国家id删除行程
+
+    @Delete("delete from jutixingcheng where id= #{id}")
+    public int delOneJTXC(@Param("id")int id);//通过具体行程id删除单条行程
 
     @Select("select * from tupian")
     public List<tupian> selectTP();//搜索所有图片信息

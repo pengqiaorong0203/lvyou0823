@@ -319,6 +319,13 @@ public class HoutaiContorller {
         return new ResponseEntity<>(jo,HttpStatus.OK);
     }
 
+    //根据具体行程id搜索单条具体行程
+    @GetMapping("/queryOneJTXC")
+    public ResponseEntity<?> queryOneJTXC(int id){
+        jutixingcheng jtxc = houTaiService.selectOneJTXC(id);
+        return new ResponseEntity<>(jtxc,HttpStatus.OK);
+    }
+
     //添加新行程
     @PostMapping("/addJTXC")
     public ResponseEntity<?> addJTXC(jutixingcheng jtxc){
@@ -339,6 +346,13 @@ public class HoutaiContorller {
         int count = houTaiService.delJTXC(guoid);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }*/
+
+    //通过具体行程id删除单条具体行程
+    @GetMapping("/delOneJTXC")
+    public ResponseEntity<?> delOneJTXC(int id) {
+        int count = houTaiService.delOneJTXC(id);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 
     //搜索所有图片
     @GetMapping("/queryTP")
