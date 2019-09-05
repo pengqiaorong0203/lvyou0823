@@ -12,13 +12,11 @@ public class lvyouxiangqing implements Serializable {
     private String info;          //旅游国家的简介
     private String liangdian;     //这个旅游项目的亮点
     private int feiyong;          //总共的费用
-    private String feiyongmingxi; //费用明细
-    private String gengduo;       //更多的信息  备注
 
     public lvyouxiangqing() {
     }
 
-    public lvyouxiangqing(int id, int guoid, String guoname, String guotpurl, String info, String liangdian, int feiyong, String feiyongmingxi, String gengduo) {
+    public lvyouxiangqing(int id, int guoid, String guoname, String guotpurl, String info, String liangdian, int feiyong) {
         this.id = id;
         this.guoid = guoid;
         this.guoname = guoname;
@@ -26,8 +24,6 @@ public class lvyouxiangqing implements Serializable {
         this.info = info;
         this.liangdian = liangdian;
         this.feiyong = feiyong;
-        this.feiyongmingxi = feiyongmingxi;
-        this.gengduo = gengduo;
     }
 
     public static long getSerialVersionUID() {
@@ -90,21 +86,6 @@ public class lvyouxiangqing implements Serializable {
         this.feiyong = feiyong;
     }
 
-    public String getFeiyongmingxi() {
-        return feiyongmingxi;
-    }
-
-    public void setFeiyongmingxi(String feiyongmingxi) {
-        this.feiyongmingxi = feiyongmingxi;
-    }
-
-    public String getGengduo() {
-        return gengduo;
-    }
-
-    public void setGengduo(String gengduo) {
-        this.gengduo = gengduo;
-    }
 
     @Override
     public String toString() {
@@ -116,8 +97,6 @@ public class lvyouxiangqing implements Serializable {
                 ", info='" + info + '\'' +
                 ", liangdian='" + liangdian + '\'' +
                 ", feiyong=" + feiyong +
-                ", feiyongmingxi='" + feiyongmingxi + '\'' +
-                ", gengduo='" + gengduo + '\'' +
                 '}';
     }
 }

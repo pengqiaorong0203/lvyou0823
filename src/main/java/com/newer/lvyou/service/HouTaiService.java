@@ -43,11 +43,15 @@ public interface HouTaiService {
 
     public List<jutixingcheng> selectJTXC(@Param("guoid")int guoid);
 
+    public jutixingcheng selectOneJTXC(@Param("id")int id);
+
     public int addJTXC(jutixingcheng jtxc);
 
     public int updJTXC(jutixingcheng jtxc);
 
     public int delJTXC(@Param("guoid")int guoid);
+
+    public int delOneJTXC(@Param("id")int id);
 
     public List<tupian> selectTP();
 
