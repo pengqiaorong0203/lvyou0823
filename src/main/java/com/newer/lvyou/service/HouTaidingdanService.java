@@ -3,7 +3,6 @@ package com.newer.lvyou.service;
 import com.newer.lvyou.domain.dingdan;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 
 public interface HouTaidingdanService {
@@ -61,4 +60,11 @@ public interface HouTaidingdanService {
      * @return
      */
     public dingdan dingdanSelect(@Param("id") Integer id);
+
+    /**
+     * 根据订单状态state查询所有订单
+     * @param state
+     * @return
+     */
+    public dingdan dingdanSelectState(@Param("state") Integer state);
 }

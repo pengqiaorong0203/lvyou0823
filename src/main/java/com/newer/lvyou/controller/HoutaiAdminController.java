@@ -1,5 +1,6 @@
 package com.newer.lvyou.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.admin;
 import com.newer.lvyou.service.HouTaiAdminService;
@@ -221,5 +222,22 @@ public class HoutaiAdminController {
         admin admin = houTaiAdminService.adminSelectOne(id);
         System.out.println("单条个人信息："+admin);
         return new ResponseEntity<>(admin,HttpStatus.OK);
+    }
+
+    /**
+     * 批量删除管理员数据
+     * @param xzadmin
+     * @return
+     */
+    @GetMapping("/chooseAll")
+    public ResponseEntity<?> chooseAll(String xzadmin){
+        JSONArray jsonArray = JSONArray.parseArray(xzadmin);
+        System.out.println("打印这个数组："+xzadmin);
+        int m = 0;
+            for (Object jsonArrays:jsonArray){
+                int k = (int)jsonArrays;
+                m = houTaiAdminService.adminDelete(k);
+            }
+            return new ResponseEntity<>(m,HttpStatus.OK);
     }
 }
