@@ -17,30 +17,30 @@ public interface HouTaidrawTableService {
      * 今天，根据guoid获取
      * @return
      */
-    public int getToday(@Param("guoid") Integer guoid);
+    public int getToday(Integer id);
 
     /**
      * 昨天，根据guoid获取
      * @return
      */
-    public int getYesterday(@Param("guoid") Integer guoid);
+    public int getYesterday(Integer id);
 
     /**
      * 本月，根据guoid获取
      * @return
      */
-    public int getMonth(@Param("guoid") Integer guoid);
+    public int getMonth(Integer id);
 
     /**
      * 本周，根据guoid获取
-     * @param guoid
+     * @param id
      * @return
      */
-    public int getWeek(@Param("guoid") Integer guoid);
+    public int getWeek(Integer id);
 
     /**
      * 本季度，根据guoid获取
      * @return
      */
-    public int getQuarter(@Param("guoid") Integer guoid);
+    public int getQuarter(Integer id);
 }

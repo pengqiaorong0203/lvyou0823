@@ -2,14 +2,12 @@ package com.newer.lvyou.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.dingdan;
-import com.newer.lvyou.domain.user;
 import com.newer.lvyou.service.HouTaidingdanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -108,6 +106,7 @@ public class HouTaidingdanController {
     @PostMapping("/dingdanUpdate")
     public ResponseEntity<?> dingdanUpdate(dingdan dingdan){
         int i = houTaidingdanService.dingdanUpdate(dingdan);
+        System.out.println("当前修改数据的id"+i);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
 

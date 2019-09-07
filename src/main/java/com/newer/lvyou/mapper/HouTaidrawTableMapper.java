@@ -19,49 +19,44 @@ public interface HouTaidrawTableMapper {
     public List<guojialist> findGuoJiaAll();
 
     /**
-     * 今天，根据guoid获取
+     * 今天，根据id获取
      * @return
      */
     @Select("select sum(feiyong) from dingdan where guoid in " +
-            "(select id from guojialist where zhouname=#{zhouname} and " +
-            "date_format(xiadantime,'%Y%m') = date_format(curdate(),'%Y%m'))")
-    public int getToday(@Param("guoid") Integer guoid);
+            "(select id from guojialist where zhouname=#{zhouname}) and date_format(xiadantime,'%Y%m') = date_format(curdate(),'%Y%m')")
+    public int getToday(Integer id);
 
     /**
      * 昨天，根据guoid获取
      * @return
      */
-    @Select("select sum(feiyong) from dingdan where guoid in " +
-            "(select id from guojialist where zhouname=#{zhouname} and " +
-            "and to_days(now()) - to_days(xiadantime) = 1")
-    public int getYesterday(@Param("guoid") Integer guoid);
+    @Select("select ifnull(sum(feiyong),0) from dingdan where guoid in " +
+            "(select id from guojialist where zhouname=#{zhouname}) and to_days(now()) - to_days(xiadantime) = 1")
+    public int getYesterday(Integer id);
 
     /**
      * 本月，根据guoid获取
      * @return
      */
-    @Select("select sum(feiyong) from dingdan where guoid in " +
-            "(select id from guojialist where zhouname=#{zhouname} and " +
-            "and YEARWEEK(date_format(xiadantime,'%Y-%m-%d')) = YEARWEEK(now())")
-    public int getMonth(@Param("guoid") Integer guoid);
+    @Select("select ifnull(sum(feiyong),0) from dingdan where guoid in " +
+            "(select id from guojialist where zhouname=#{zhouname}) and YEARWEEK(date_format(xiadantime,'%Y-%m-%d')) = YEARWEEK(now())")
+    public int getMonth(Integer id);
 
     /**
      * 本周，根据guoid获取
-     * @param guoid
+     * @param id
      * @return
      */
     @Select("select sum(feiyong) from dingdan where guoid in " +
-            "(select id from guojialist where zhouname=#{zhouname} and " +
-            "and date_format(xiadantime,'%Y%m') = date_format(curdate(),'%Y%m')")
-    public int getWeek(@Param("guoid") Integer guoid);
+            "(select id from guojialist where zhouname=#{zhouname}) and date_format(xiadantime,'%Y%m') = date_format(curdate(),'%Y%m')")
+    public int getWeek(Integer id);
 
     /**
      * 本季度，根据guoid获取
      * @return
      */
     @Select("select sum(feiyong) from dingdan where guoid in " +
-            "(select id from guojialist where zhouname=#{zhouname} and " +
-            "and QUARTER(xiadantime)=QUARTER(now())")
-    public int getQuarter(@Param("guoid") Integer guoid);
+            "(select id from guojialist where zhouname=#{zhouname}) and QUARTER(xiadantime) = QUARTER(now())")
+    public int getQuarter(Integer id);
 
 }

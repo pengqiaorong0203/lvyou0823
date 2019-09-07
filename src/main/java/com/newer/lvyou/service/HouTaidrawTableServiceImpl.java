@@ -27,8 +27,8 @@ public class HouTaidrawTableServiceImpl implements HouTaidrawTableService{
      * @return
      */
     @Override
-    public int getToday(Integer guoid) {
-        return houTaidrawTableMapper.getToday(guoid);
+    public int getToday(Integer id) {
+        return houTaidrawTableMapper.getToday(id);
     }
 
     /**
@@ -36,8 +36,8 @@ public class HouTaidrawTableServiceImpl implements HouTaidrawTableService{
      * @return
      */
     @Override
-    public int getYesterday(Integer guoid) {
-        return houTaidrawTableMapper.getYesterday(guoid);
+    public int getYesterday(Integer id) {
+        return houTaidrawTableMapper.getYesterday(id);
     }
 
     /**
@@ -45,18 +45,18 @@ public class HouTaidrawTableServiceImpl implements HouTaidrawTableService{
      * @return
      */
     @Override
-    public int getMonth(Integer guoid) {
-        return houTaidrawTableMapper.getMonth(guoid);
+    public int getMonth(Integer id) {
+        return houTaidrawTableMapper.getMonth(id);
     }
 
     /**
      * 本周，根据guoid获取
-     * @param guoid
+     * @param id
      * @return
      */
     @Override
-    public int getWeek(Integer guoid) {
-        return houTaidrawTableMapper.getWeek(guoid);
+    public int getWeek(Integer id) {
+        return houTaidrawTableMapper.getWeek(id);
     }
 
     /**
@@ -64,7 +64,7 @@ public class HouTaidrawTableServiceImpl implements HouTaidrawTableService{
      * @return
      */
     @Override
-    public int getQuarter(Integer guoid) {
-        return houTaidrawTableMapper.getQuarter(guoid);
+    public int getQuarter(Integer id) {
+        return houTaidrawTableMapper.getQuarter(id);
     }
 }

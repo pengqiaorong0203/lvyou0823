@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 命名空间 唯一的,不能为空-->
+<!--此查询方法查询用户评论并实现分页-->
+<mapper namespace="com.newer.lvyou.mapper.HouTaiTeamMapper">
+    <select id="findAllTuanDuiFenYe" resultType="tuandui">
+        select * from tuandui
+        <where>
+            1=1
+            <if test="tname!=null and tname!=''">
+                and tname like concat('%',concat(#{tname},'%'))
+            </if>
+            limit #{pageNo},#{pageSize}
+        </where>
+    </select>
+
+    <select id="tuanduiCount" resultType="int">
+        SELECT COUNT(*) FROM tuandui
+        <where>
+            1=1
+            <if test="tname!=null and tname!=''">
+                and tname like concat('%',concat(#{tname},'%'))
+            </if>
+        </where>
+    </select>
+</mapper>

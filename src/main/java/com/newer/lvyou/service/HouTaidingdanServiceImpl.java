@@ -5,7 +5,6 @@ import com.newer.lvyou.mapper.HouTaidingdanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -73,6 +72,16 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
     @Override
     public dingdan dingdanSelect(Integer id) {
         return houTaidingdanMapper.dingdanSelect(id);
+    }
+
+    /**
+     * 根据订单状态state查询所有订单
+     * @param state
+     * @return
+     */
+    @Override
+    public dingdan dingdanSelectState(Integer state) {
+        return houTaidingdanMapper.dingdanSelectState(state);
     }
 
     /**

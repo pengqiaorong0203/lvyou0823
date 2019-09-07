@@ -4,7 +4,6 @@ import com.newer.lvyou.domain.dingdan;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -61,9 +60,7 @@ public interface HouTaidingdanMapper {
      * @param dingdan
      * @return
      */
-    @Update("update dingdan set uid=#{uid},uname=#{uname},phone=#{phone},email=#{email}," +
-            "time=#{time},chengren=#{chengren},ertong=#{ertong},info=#{info},state=#{state}," +
-            "jiuid=#{jiuid},feiyong=#{feiyong},xiadantime=#{xiadantime} where id=#{id}")
+    @Update("update dingdan set uname=#{uname},info=#{info},state=#{state} where id=#{id}")
     public int dingdanUpdate(dingdan dingdan);
 
     /**
@@ -73,4 +70,12 @@ public interface HouTaidingdanMapper {
      */
     @Select("select * from dingdan where id=#{id}")
     public dingdan dingdanSelect(@Param("id") Integer id);
+
+    /**
+     * 根据订单状态state查询所有订单
+     * @param state
+     * @return
+     */
+    @Select("select * from dingdan where state=#{state}")
+    public dingdan dingdanSelectState(@Param("state") Integer state);
 }
