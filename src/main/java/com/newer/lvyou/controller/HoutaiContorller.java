@@ -2,7 +2,6 @@ package com.newer.lvyou.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mysql.cj.xdevapi.JsonArray;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -244,7 +243,7 @@ public class HoutaiContorller {
                 System.out.println(filePath);
                 // 转存文件
                 file.transferTo(new File(filePath));
-                filePath = "img/"+zhouname+"/xq"+guoname+".jpg";
+                filePath = "img/"+zhouname+"/XQ"+guoname+".jpg";
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -279,7 +278,7 @@ public class HoutaiContorller {
                     System.out.println(filePath);
                     // 转存文件
                     file.transferTo(new File(filePath));
-                    filePath = "img/" + zhouname + "/xq" + guoname + ".jpg";
+                    filePath = "img/" + zhouname + "/XQ" + guoname + ".jpg";
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
