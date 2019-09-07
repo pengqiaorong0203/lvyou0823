@@ -1,13 +1,16 @@
 package com.newer.lvyou.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.tupian;
 import com.newer.lvyou.service.HouTaitupianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -17,6 +20,8 @@ public class HouTaitupianController {
     @Autowired
     private HouTaitupianService houTaitupianService;
 
+
+
     /**
      * 查询所有旅游国家列表并实现分页
      * @param
@@ -24,7 +29,7 @@ public class HouTaitupianController {
      * @param pageSize
      * @return
      */
-    @PostMapping("/queryTupianList")
+    @GetMapping("/queryTupianList")
     public ResponseEntity<?> queryTupianList(String name,@RequestParam("iDisplayStart")int pageNo, @RequestParam("iDisplayLength")int pageSize){
         String guoname = null;
         System.out.println("...............................................................");
@@ -51,5 +56,59 @@ public class HouTaitupianController {
     public ResponseEntity<?> tupianCount(String guoname){
         int count = houTaitupianService.tupianCount(guoname);
         return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    /**
+     * 添加图片信息
+     * @param uplx
+     * @param guoname
+     * @param
+     * @return
+     */
+    @PostMapping("/tupianAddList")
+    public ResponseEntity<?> tupianAddList(@RequestParam(value = "file",required = false)MultipartFile uplx,
+                                           @RequestParam("guoname") String guoname,
+                                           @RequestParam("guoid") int guoid
+                                       ){
+        String filePath = null;
+        if (!uplx.isEmpty()){
+            try {
+                /*文件保存路径*/
+                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+guoname+".jpg";
+                /*转存路径*/
+                uplx.transferTo(new File(filePath));
+                filePath = "img/"+guoname+".jpg";
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        tupian tupian = new tupian();
+        tupian.setGuoid(guoid);
+        tupian.setTpurl(filePath);
+        int count = houTaitupianService.tupianAdd(tupian);
+        System.out.println("打印保存路径1...："+filePath);
+        System.out.println("打印保存路径2...："+filePath);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    /**
+     *动态查询所有国家名字
+     * @return
+     */
+    @GetMapping("/queryGuoJiaList")
+    public ResponseEntity<?> queryGuoJiaList(){
+        List<guojialist> guojialistList = houTaitupianService.queryGuoJiaList();
+        return new ResponseEntity<>(guojialistList,HttpStatus.OK);
+    }
+
+    /**
+     *根据图片id删除图片信息
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/tupianDelete")
+    public ResponseEntity<?> tupianDelete(Integer id){
+        int i = houTaitupianService.tupianDelete(id);
+        return new ResponseEntity<>(i,HttpStatus.OK);
     }
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 命名空间 唯一的,不能为空-->
+<!--此查询方法查询用户评论并实现分页-->
+<mapper namespace="com.newer.lvyou.mapper.HouTaijiudianMapper">
+    <select id="findAlljiudianFenYe" resultType="jiudian">
+        select * from jiudian
+        <where>
+            1=1
+            <!--使用模糊查询用户数据-->
+            <if test="jdname!=null and jdname!=''">
+                and jdname like concat('%',concat(#{jdname},'%'))
+            </if>
+          <!--  &lt;!&ndash;使用模糊查询日期数据&ndash;&gt;
+            <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
+                and xiadantime between #{beginDate} and #{endDate}
+            </if>-->
+            limit #{pageNo},#{pageSize}
+        </where>
+    </select>
+
+    <select id="jiudianCount" resultType="int">
+        SELECT COUNT(*) FROM jiudian
+        <where>
+            1=1
+            <if test="jdname!=null and jdname!=''">
+                and jdname like concat('%',concat(#{jdname},'%'))
+            </if>
+        </where>
+    </select>
+
+</mapper>

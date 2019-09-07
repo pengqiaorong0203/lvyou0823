@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -106,5 +108,38 @@ public class HouTaiTeamController {
     public ResponseEntity<?> findOneTuandui(Integer id){
         tuandui tuandui = houTaiteamService.findOneTuandui(id);
         return new ResponseEntity<>(tuandui,HttpStatus.OK);
+    }
+
+    /**
+     * 添加图片信息
+     * @param tname
+     * @param info
+     * @param
+     * @return
+     */
+    @PostMapping("/tuanduiAddList")
+    public ResponseEntity<?> tuanduiAddList(@RequestParam(value = "file",required = false)MultipartFile uplx,
+                                            @RequestParam("tname") String tname,
+                                            @RequestParam("info") String info
+    ){
+        String filePath = null;
+        if (!uplx.isEmpty()){
+            try {
+                /*文件保存路径*/
+                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/团队头像/"+tname+".jpg";
+                /*转存路径*/
+                uplx.transferTo(new File(filePath));
+                filePath = "img/"+tname+".jpg";
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        tuandui tuandui = new tuandui();
+        tuandui.setTname(tname);
+        tuandui.setInfo(info);
+        int count = houTaiteamService.tuanduiAdd(tuandui);
+        System.out.println("打印保存路径1...："+filePath);
+        System.out.println("打印保存路径2...："+filePath);
+        return new ResponseEntity<>(count,HttpStatus.OK);
     }
 }

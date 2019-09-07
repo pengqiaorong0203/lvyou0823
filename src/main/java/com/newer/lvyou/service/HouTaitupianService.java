@@ -1,8 +1,9 @@
 package com.newer.lvyou.service;
 
 import com.newer.lvyou.domain.dingdan;
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.tupian;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -33,10 +34,10 @@ public interface HouTaitupianService {
 
     /**
      * 新增图片信息;
-     * @param dingdan
+     * @param tupian
      * @return
      */
-    public int dingdanAdd(dingdan dingdan);
+    public int tupianAdd(tupian tupian);
 
     /**
      *根据图片id删除图片信息
@@ -47,10 +48,10 @@ public interface HouTaitupianService {
 
     /**
      * 根据图片id修改图片信息
-     * @param dingdan
+     * @param tupian
      * @return
      */
-    public int dingdanUpdate(dingdan dingdan);
+    public int tupianUpdate(tupian tupian);
 
     /**
      * 根据图片id查询单条图片信息
@@ -58,4 +59,10 @@ public interface HouTaitupianService {
      * @return
      */
     public dingdan tupianSelect(@Param("id") Integer id);
+
+    /**
+     * 动态查询所有国家名字
+     * @return
+     */
+    public List<guojialist> queryGuoJiaList();
 }

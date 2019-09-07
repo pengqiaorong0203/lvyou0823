@@ -1,6 +1,7 @@
 package com.newer.lvyou.service;
 
 import com.newer.lvyou.domain.dingdan;
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.tupian;
 import com.newer.lvyou.mapper.HoutaiTupianMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,12 @@ public class HouTaitupianServiceImpl implements HouTaitupianService{
 
     /**
      * 新增图片信息
-     * @param dingdan
+     * @param tupian
      * @return
      */
     @Override
-    public int dingdanAdd(dingdan dingdan) {
-        return houtaiTupianMapper.dingdanAdd(dingdan);
+    public int tupianAdd(tupian tupian) {
+        return houtaiTupianMapper.tupianAdd(tupian);
     }
 
     /**
@@ -67,12 +68,12 @@ public class HouTaitupianServiceImpl implements HouTaitupianService{
 
     /**
      * 根据图片id修改图片信息
-     * @param dingdan
+     * @param tupian
      * @return
      */
     @Override
-    public int dingdanUpdate(dingdan dingdan) {
-        return houtaiTupianMapper.dingdanUpdate(dingdan);
+    public int tupianUpdate(tupian tupian) {
+        return houtaiTupianMapper.tupianUpdate(tupian);
     }
 
     /**
@@ -83,5 +84,14 @@ public class HouTaitupianServiceImpl implements HouTaitupianService{
     @Override
     public dingdan tupianSelect(Integer id) {
         return houtaiTupianMapper.tupianSelect(id);
+    }
+
+    /**
+     *动态查询所有国家名字
+     * @return
+     */
+    @Override
+    public List<guojialist> queryGuoJiaList() {
+        return houtaiTupianMapper.queryGuoJiaList();
     }
 }

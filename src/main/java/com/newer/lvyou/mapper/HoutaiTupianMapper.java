@@ -1,6 +1,7 @@
 package com.newer.lvyou.mapper;
 
 import com.newer.lvyou.domain.dingdan;
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.tupian;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -36,11 +37,12 @@ public interface HoutaiTupianMapper {
 
     /**
      * 新增图片信息;
-     * @param dingdan
+     * @param tupian
      * @return
      */
     @Insert("insert into tupian(guoid,tpurl) values(#{guoid},#{tpurl})")
-    public int dingdanAdd(dingdan dingdan);
+    /*@Insert("insert into tupian(guoid,tpurl) values((select guojialist.id from guojialist where guoname=#{guoname}),#{tpurl})")*/
+    public int tupianAdd(tupian tupian);
 
     /**
      *根据图片id删除图片信息
@@ -52,11 +54,11 @@ public interface HoutaiTupianMapper {
 
     /**
      * 根据图片id修改图片信息
-     * @param dingdan
+     * @param tupian
      * @return
      */
     @Update("update tupian set guoid=#{guoid},tpurl=#{tpurl} where id=#{id}")
-    public int dingdanUpdate(dingdan dingdan);
+    public int tupianUpdate(tupian tupian);
 
     /**
      * 根据图片id查询单条图片信息
@@ -65,5 +67,12 @@ public interface HoutaiTupianMapper {
      */
     @Select("select * from tupian where id=#{id}")
     public dingdan tupianSelect(@Param("id") Integer id);
+
+    /**
+     * 动态查询所有国家名字
+     * @return
+     */
+    @Select("select id,guoname from guojialist")
+    public List<guojialist> queryGuoJiaList();
 
 }
