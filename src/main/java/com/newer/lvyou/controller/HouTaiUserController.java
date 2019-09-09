@@ -116,4 +116,6 @@ public class HouTaiUserController {
         user user = houTaiuserService.findOneUser(id);
         return new ResponseEntity<>(user,HttpStatus.OK);
     }
+
+
 }
