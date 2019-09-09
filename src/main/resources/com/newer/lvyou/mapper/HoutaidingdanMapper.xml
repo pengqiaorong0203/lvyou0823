@@ -27,6 +27,9 @@
             <if test="uname!=null and uname!=''">
                 and uname like concat('%',concat(#{uname},'%'))
             </if>
+            <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
+                and xiadantime between #{beginDate} and #{endDate}
+            </if>
         </where>
     </select>
 

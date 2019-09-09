@@ -99,5 +99,13 @@ public interface HoutaiMapper {
     @Update("update tupian set guoid = #{guoid},tpurl = #{tpurl} where id = #{id}")
     public int updTP(tupian tp);//修改图片
 
+    public List<shenhelist> selectSHL( @Param("name") String name,
+                                @Param("pageNo")Integer pageNo,
+                                @Param("pageSize")Integer pageSize,
+                                @Param("beginDate")String beginDate,
+                                @Param("endDate")String endDate);//查找所有需要审核的列表
 
+    public int countSHL(@Param("name") String name,
+                        @Param("beginDate")String beginDate,
+                        @Param("endDate")String endDate);//审核列表数量
 }

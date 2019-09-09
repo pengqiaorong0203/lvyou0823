@@ -23,4 +23,32 @@
         </where>
     </select>
 
+    <select id="selectSHL" resultType="shenhelist">
+        select * from shenhelist
+        <where>
+            1=1
+            <if test="name!=null and name!=''">
+                and xiugaibiao like concat('%',concat(#{name},'%'))
+                 or  and xiugaiadmin like concat('%',concat(#{name},'%'))
+            </if>
+            <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
+                and xiadantime between #{beginDate} and #{endDate}
+            </if>
+            limit #{pageNo},#{pageSize}
+        </where>
+    </select>
+
+    <select id="countSHL" resultType="int">
+        SELECT COUNT(*) FROM shenhelist
+        <where>
+            1=1
+            <if test="name!=null and name!=''">
+                and xiugaibiao like concat('%',concat(#{name},'%'))
+                or  and xiugaiadmin like concat('%',concat(#{name},'%'))
+            </if>
+            <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
+                and xiadantime between #{beginDate} and #{endDate}
+            </if>
+        </where>
+    </select>
 </mapper>

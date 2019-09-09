@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -381,6 +382,31 @@ public class HoutaiContorller {
     @PostMapping("/updTP")
     public ResponseEntity<?> updTP(tupian tp){
         int count = houTaiService.updTP(tp);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //查询所有审核列表
+    @GetMapping("/selectSHL")
+    public ResponseEntity<?> selectSHL(String name,
+                                       @RequestParam("iDisplayStart")int pageNo,
+                                       @RequestParam("iDisplayLength")int pageSize,
+                                       String beginDate,
+                                       String endDate){
+        List<shenhelist> list = houTaiService.selectSHL(name,pageNo,pageSize,beginDate,endDate);
+        JSONObject jo = new JSONObject();
+        int total = houTaiService.countSHL(name,beginDate,endDate);
+        jo.put("data",list);
+        jo.put("iTotalDisplayRecords",total);
+        jo.put("iTotalRecords",total);
+        return new ResponseEntity<>(jo,HttpStatus.OK);
+    }
+
+    //查询审核列表数量
+    @PostMapping("/countSHL")
+    public ResponseEntity<?> countSHL(String name,
+                                      String beginDate,
+                                      String endDate){
+        int count = houTaiService.countSHL(name,beginDate,endDate);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 

@@ -162,4 +162,14 @@ public class HouTaiServiceImpl implements HouTaiService {
     public guojialist selectGJByid(int id) {
         return houtaiMapper.selectGJByid(id);
     }
+
+    @Override
+    public List<shenhelist> selectSHL(String name, Integer pageNo, Integer pageSize, String beginDate, String endDate) {
+        return houtaiMapper.selectSHL(name,pageNo,pageSize,beginDate,endDate);
+    }
+
+    @Override
+    public int countSHL(String name, String beginDate, String endDate) {
+        return houtaiMapper.countSHL(name,beginDate,endDate);
+    }
 }

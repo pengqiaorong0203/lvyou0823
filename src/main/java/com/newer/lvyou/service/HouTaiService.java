@@ -66,4 +66,14 @@ public interface HouTaiService {
     public jiudian selectJDById(@Param("id")int id);
 
     public guojialist selectGJByid(@Param("id")int id);
+
+    public List<shenhelist> selectSHL(@Param("name") String name,
+                                @Param("pageNo")Integer pageNo,
+                                @Param("pageSize")Integer pageSize,
+                                @Param("beginDate")String beginDate,
+                                @Param("endDate")String endDate);
+
+    public int countSHL( @Param("name") String name,
+                        @Param("beginDate")String beginDate,
+                        @Param("endDate")String endDate);
 }
