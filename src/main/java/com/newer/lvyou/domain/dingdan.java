@@ -14,16 +14,16 @@ public class dingdan implements Serializable {
     private String uname;  //用户真实姓名
     private String phone;  //去旅游人的联系方式   因为下单的人不一定是去旅游的人
     private String email;  //用户邮箱
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy年MM月dd日")
+    @JsonFormat(pattern = "yyyy年MM月dd日",timezone = "GMT+8")
     private Date time;     //去旅游的日期
     private int chengren;  //去旅游的成人人数
     private int ertong;    //去旅游的儿童人数
     private String info;   //备注信息
     private int state;     //订单状态   生成的时候为0：未付款   点击支付后为1：已付款   已经去旅游了为2：已旅游
     private int jiuid;     //行程绑定的酒店id
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy年MM月dd日HH时mm分ss秒")
+    @JsonFormat(pattern="yyyy年MM月dd日HH时mm分ss秒",timezone = "GMT+8")
     private Date xiadantime;//订单下单时间
     private int feiyong;    //订单费用
     private int guoid;      //绑定旅游国家id
