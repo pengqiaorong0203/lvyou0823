@@ -5,9 +5,9 @@
 <!--此查询方法查询用户评论并实现分页-->
 <mapper namespace="com.newer.lvyou.mapper.HoutaiTupianMapper">
     <select id="findAllTuPianFenYe" resultType="guojialist">
-        SELECT id,guoid,guoname,tpurl,shenhe FROM (SELECT d.id,d.guoid,e.guoname,d.tpurl,d.shenhe  FROM guojialist e,tupian d  WHERE e.id=d.guoid) a
+        SELECT d.id,d.guoid,e.guoname,d.tpurl,d.shenhe  FROM guojialist e,tupian d
         <where>
-            1=1
+            1=1 and e.id=d.guoid
             /*使用模糊查询用户数据*/
             <if test="guoname!=null and guoname!=''">
                 and guoname like concat('%',concat(#{guoname},'%'))
