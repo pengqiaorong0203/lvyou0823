@@ -392,7 +392,6 @@ public class HoutaiContorller {
                                        String beginDate,
                                        String endDate,
                                        @RequestParam("shzt") String shzt){
-        System.out.println("审核状态"+shzt);
         List<shenhelist> list = houTaiService.selectSHL(name,pageNo,pageSize,beginDate,endDate,shzt);
         JSONObject jo = new JSONObject();
         int total = houTaiService.countSHL(name,beginDate,endDate,shzt);
@@ -408,7 +407,6 @@ public class HoutaiContorller {
                                       String beginDate,
                                       String endDate,
                                       @RequestParam("shzt")String shzt){
-        System.out.println("审核状态"+shzt);
         int count = houTaiService.countSHL(name,beginDate,endDate,shzt);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
@@ -423,19 +421,31 @@ public class HoutaiContorller {
     //审核
     @PutMapping("/updSHL")
     public ResponseEntity<?> updSHL(int id,int shenhe,String shenhebiao,int shenheid){
+        System.out.println(id);
+        System.out.println(shenhe);
+        System.out.println(shenhebiao);
+        System.out.println(shenheid);
         if("旅游".equals(shenhebiao)){
             houTaiService.updGJLSH(id,shenhe);
             houTaiService.updSH(shenheid,shenhe);
+            System.out.println("进入旅游");
+            return new ResponseEntity<>("1",HttpStatus.OK);
         }else if("酒店".equals(shenhebiao)){
             houTaiService.updJDSH(id,shenhe);
             houTaiService.updSH(shenheid,shenhe);
+            System.out.println("进入酒店");
+            return new ResponseEntity<>("1",HttpStatus.OK);
         }else if("团队".equals(shenhebiao)){
             houTaiService.updTDSH(id,shenhe);
             houTaiService.updSH(shenheid,shenhe);
+            System.out.println("进入团队");
+            return new ResponseEntity<>("1",HttpStatus.OK);
         }else if("图片".equals(shenhebiao)){
             houTaiService.updTPSH(id,shenhe);
             houTaiService.updSH(shenheid,shenhe);
+            System.out.println("进入图片");
+            return new ResponseEntity<>("1",HttpStatus.OK);
         }
-        return new ResponseEntity<>(1,HttpStatus.OK);
+        return new ResponseEntity<>("1",HttpStatus.OK);
     }
 }

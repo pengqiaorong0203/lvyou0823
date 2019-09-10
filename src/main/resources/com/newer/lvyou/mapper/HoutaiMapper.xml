@@ -35,7 +35,7 @@
                  or xiugaiadmin like concat('%',concat(#{name},'%'))
             </if>
             <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
-                and xiadantime between #{beginDate} and #{endDate}
+                and xiugaitime between #{beginDate} and #{endDate}
             </if>
             limit #{pageNo},#{pageSize}
         </where>
@@ -53,7 +53,7 @@
                 or xiugaiadmin like concat('%',concat(#{name},'%'))
             </if>
             <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
-                and xiadantime between #{beginDate} and #{endDate}
+                and xiugaitime between #{beginDate} and #{endDate}
             </if>
         </where>
     </select>
