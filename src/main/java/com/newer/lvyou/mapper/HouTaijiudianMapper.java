@@ -43,7 +43,7 @@ public interface HouTaijiudianMapper {
      * @param jiudian
      * @return
      */
-    @Update("update jiudian set guoid=#{guoid},jdname=#{jdname},info=#{info}," +
+    @Update("update jiudian set jdname=#{jdname},info=#{info}," +
             "shenhe=#{shenhe},jiage=#{jiage} where id=#{id}")
     public int jiudianUpdate(jiudian jiudian);
 

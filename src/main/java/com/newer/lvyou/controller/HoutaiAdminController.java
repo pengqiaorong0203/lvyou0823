@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.admin;
 import com.newer.lvyou.service.HouTaiAdminService;
+import com.newer.lvyou.util.JwtTokenUtil;
 import com.newer.lvyou.util.SecurityCode;
 import com.newer.lvyou.util.SecurityImage;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +32,11 @@ public class HoutaiAdminController {
     @Autowired
     private HouTaiAdminService houTaiAdminService;
 
+    @Value("${auth.header}")
+    private String header;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
     /**
      * 定义验证码字符串;
      */
@@ -239,5 +247,42 @@ public class HoutaiAdminController {
                 m = houTaiAdminService.adminDelete(k);
             }
             return new ResponseEntity<>(m,HttpStatus.OK);
+    }
+
+    /*测试获取token信息*/
+    @PostMapping("/loginTest1")
+    public ResponseEntity loginTest(@Param("name") String name,
+                                    @Param("pwd") String pwd){
+
+        if ("admin".equals(name)&&"admin".equals(pwd)){
+            //此处登录如果成功
+            String token = jwtTokenUtil.createJwt(name,pwd);
+            return new ResponseEntity<>(token,HttpStatus.OK);
+        }
+        /*Admins admins = adminsService.findByPwdAname(aname,pwd);
+        if (admins!=null){
+            //如果登录成功
+            String token = jwtTokenUtil.createJwt(aname,pwd);
+            return new ResponseEntity<>(token,HttpStatus.OK);
+        }
+        */
+        return new ResponseEntity<>("失败",HttpStatus.OK);
+    }
+
+    /*获取token,根据token获取用户信息*/
+    @RequestMapping("/check1")
+    public ResponseEntity<?> check(HttpServletRequest request){
+        String token = request.getHeader(header);
+        System.out.println("是否进入方法。。。。。。。。。。。。。。***********");
+        if (token!=null){
+            /*Claims claims = jwtTokenUtil.parseJWT(token);
+            System.out.println(claims.get("realname")
+            +","+claims.get("sex"));
+            System.out.println(claims.getIssuer());*/
+            String name = jwtTokenUtil.getUsernameByToken(token);
+            System.out.println("是否输出**********"+name);
+            return new ResponseEntity<>(name,HttpStatus.OK);
+        }
+        return new ResponseEntity<>("失败",HttpStatus.OK);
     }
 }

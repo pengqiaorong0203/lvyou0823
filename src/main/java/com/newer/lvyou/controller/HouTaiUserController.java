@@ -1,5 +1,6 @@
 package com.newer.lvyou.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.user;
 import com.newer.lvyou.service.HouTaiuserService;

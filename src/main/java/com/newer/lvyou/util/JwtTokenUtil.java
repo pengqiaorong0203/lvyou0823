@@ -32,7 +32,7 @@ public class JwtTokenUtil {
 	 * @param
 	 * @return
 	 */
-	public String createJwt(String uid) {
+	public String createJwt(String uid,String pwd) {
 		Date now = clock.now();
 		// 添加JWT的包含部分，有三部分：头部（header）、载荷（payload）、签证（signature）.
 		JwtBuilder jwtBuilder = Jwts.builder().setHeaderParam("typ", "JWT").setIssuedAt(now) // 设置jwt创建时间

@@ -73,7 +73,7 @@ public class HouTaiJiudianController {
      * @param id
      * @return
      */
-    @DeleteMapping("/jiudianDelete/{id}")
+    @DeleteMapping("/jiudianDelete")
     public ResponseEntity<?> jiudianDelete(Integer id) {
         int i = houTaijiudianService.jiudianDelete(id);
         return new ResponseEntity<>(i,HttpStatus.OK);
@@ -210,7 +210,8 @@ public class HouTaiJiudianController {
                                                @RequestParam("info") String info,
                                                @RequestParam("tp") String tp,
                                                @RequestParam("jdname") String jdname,
-                                               @RequestParam("jiage")Integer jiage
+                                               @RequestParam("jiage")Integer jiage,
+                                               @RequestParam("id")Integer id
     ){
         String filePath = null;
         if(uplx!=null){
@@ -229,6 +230,7 @@ public class HouTaiJiudianController {
             filePath = tp;
         }
         jiudian jiudian = new jiudian();
+        jiudian.setId(id);
         jiudian.setInfo(info);
         jiudian.setJiage(jiage);
         jiudian.setTupian(filePath);
@@ -237,7 +239,7 @@ public class HouTaiJiudianController {
         int count = houTaijiudianService.jiudianUpdate(jiudian);
         System.out.println("打印保存路径1...："+filePath);
         System.out.println("打印保存路径2...："+filePath);
-        System.out.println("打印保存路径3...："+jiudian);
+        System.out.println("打印保存路径3...："+count);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
