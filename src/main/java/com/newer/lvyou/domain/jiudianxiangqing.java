@@ -9,19 +9,17 @@ public class jiudianxiangqing implements Serializable {
     private int jiuid;       //酒店id
     private String jdtupian; //酒店图片
     private String jdname;   //酒店名称
-        private String info;     //酒店详情描述
-    private int jiage;       //酒店价格
+    private String info;     //酒店详情描述
 
     public jiudianxiangqing() {
     }
 
-    public jiudianxiangqing(int id, int jiuid, String jdtupian, String jdname, String info,int jiage) {
+    public jiudianxiangqing(int id, int jiuid, String jdtupian, String jdname, String info) {
         this.id = id;
         this.jiuid = jiuid;
         this.jdtupian = jdtupian;
         this.jdname = jdname;
         this.info = info;
-        this.jiage = jiage;
     }
 
     public static long getSerialVersionUID() {
@@ -68,14 +66,6 @@ public class jiudianxiangqing implements Serializable {
         this.info = info;
     }
 
-    public int getJiage() {
-        return jiage;
-    }
-
-    public void setJiage(int jiage) {
-        this.jiage = jiage;
-    }
-
     @Override
     public String toString() {
         return "jiudianxiangqing{" +
@@ -84,7 +74,6 @@ public class jiudianxiangqing implements Serializable {
                 ", jdtupian='" + jdtupian + '\'' +
                 ", jdname='" + jdname + '\'' +
                 ", info='" + info + '\'' +
-                ", jiage=" + jiage +
                 '}';
     }
 }

@@ -4,13 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -133,16 +131,18 @@ public class HoutaiContorller {
                                        @RequestParam("zhouname")String zhouname,
                                        @RequestParam("shuxing")int shuxing){
         String filePath = null;
-        if (!file.isEmpty()) {
-            try {
-                // 文件保存路径
-                filePath = "D:/nginx-1.16.0/html/lvyou/img/"+zhouname+"/"+guoname+".jpg";
-                System.out.println(filePath);
-                // 转存文件
-                file.transferTo(new File(filePath));
-                filePath = "img/"+zhouname+"/"+guoname+".jpg";
-            } catch (Exception e) {
-                e.printStackTrace();
+        if(file!=null) {
+            if (!file.isEmpty()) {
+                try {
+                    // 文件保存路径
+                    filePath = "D:/nginx-1.16.0/html/lvyou/img/" + zhouname + "/" + guoname + ".jpg";
+                    System.out.println(filePath);
+                    // 转存文件
+                    file.transferTo(new File(filePath));
+                    filePath = "img/" + zhouname + "/" + guoname + ".jpg";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         guojialist gjl = new guojialist();
@@ -246,7 +246,7 @@ public class HoutaiContorller {
                 System.out.println(filePath);
                 // 转存文件
                 file.transferTo(new File(filePath));
-                filePath = "img/"+zhouname+"/xq"+guoname+".jpg";
+                filePath = "img/"+zhouname+"/XQ"+guoname+".jpg";
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -281,7 +281,7 @@ public class HoutaiContorller {
                     System.out.println(filePath);
                     // 转存文件
                     file.transferTo(new File(filePath));
-                    filePath = "img/" + zhouname + "/xq" + guoname + ".jpg";
+                    filePath = "img/" + zhouname + "/XQ" + guoname + ".jpg";
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -384,4 +384,58 @@ public class HoutaiContorller {
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
+    //查询所有审核列表
+    @GetMapping("/selectSHL")
+    public ResponseEntity<?> selectSHL(String name,
+                                       @RequestParam("iDisplayStart")int pageNo,
+                                       @RequestParam("iDisplayLength")int pageSize,
+                                       String beginDate,
+                                       String endDate,
+                                       @RequestParam("shzt") String shzt){
+        System.out.println("审核状态"+shzt);
+        List<shenhelist> list = houTaiService.selectSHL(name,pageNo,pageSize,beginDate,endDate,shzt);
+        JSONObject jo = new JSONObject();
+        int total = houTaiService.countSHL(name,beginDate,endDate,shzt);
+        jo.put("data",list);
+        jo.put("iTotalDisplayRecords",total);
+        jo.put("iTotalRecords",total);
+        return new ResponseEntity<>(jo,HttpStatus.OK);
+    }
+
+    //查询审核列表数量
+    @PostMapping("/countSHL")
+    public ResponseEntity<?> countSHL(String name,
+                                      String beginDate,
+                                      String endDate,
+                                      @RequestParam("shzt")String shzt){
+        System.out.println("审核状态"+shzt);
+        int count = houTaiService.countSHL(name,beginDate,endDate,shzt);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //根据审核表id查找单条审核记录
+    @GetMapping("/selectXGB")
+    public ResponseEntity<?> selectXGB(int id){
+        shenhelist shl = houTaiService.selectXGB(id);
+        return new ResponseEntity<>(shl,HttpStatus.OK);
+    }
+
+    //审核
+    @PutMapping("/updSHL")
+    public ResponseEntity<?> updSHL(int id,int shenhe,String shenhebiao,int shenheid){
+        if("旅游".equals(shenhebiao)){
+            houTaiService.updGJLSH(id,shenhe);
+            houTaiService.updSH(shenheid,shenhe);
+        }else if("酒店".equals(shenhebiao)){
+            houTaiService.updJDSH(id,shenhe);
+            houTaiService.updSH(shenheid,shenhe);
+        }else if("团队".equals(shenhebiao)){
+            houTaiService.updTDSH(id,shenhe);
+            houTaiService.updSH(shenheid,shenhe);
+        }else if("图片".equals(shenhebiao)){
+            houTaiService.updTPSH(id,shenhe);
+            houTaiService.updSH(shenheid,shenhe);
+        }
+        return new ResponseEntity<>(1,HttpStatus.OK);
+    }
 }

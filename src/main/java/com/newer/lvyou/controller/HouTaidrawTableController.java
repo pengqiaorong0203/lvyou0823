@@ -82,7 +82,7 @@ public class HouTaidrawTableController {
                 ) {
             Map<String,Object> map = new HashMap<>();
             map.put("name",guojialists.getZhouname());
-            map.put("y",houTaidrawTableService.getQuarter(guojialists.getId()));
+            map.put("y",houTaidrawTableService.getQuarter(guojialists.getId())/10000);
             map.put("drilldown",guojialists.getZhouname());
             list.add(map);
         }
