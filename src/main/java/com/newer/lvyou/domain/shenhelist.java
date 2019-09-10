@@ -16,11 +16,12 @@ public class shenhelist implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date xiugaitime;    //修改的时间
+    private int shenhe;         //审核状态
 
     public shenhelist() {
     }
 
-    public shenhelist(int id, String xiugaibiao, int biaoid, String xiugaiadmin, Date xiugaitime) {
+    public shenhelist(int id, String xiugaibiao, int biaoid, String xiugaiadmin, Date xiugaitime,int shenhe) {
         this.id = id;
         this.xiugaibiao = xiugaibiao;
         this.biaoid = biaoid;
@@ -72,6 +73,14 @@ public class shenhelist implements Serializable {
         this.xiugaitime = xiugaitime;
     }
 
+    public int getShenhe() {
+        return shenhe;
+    }
+
+    public void setShenhe(int shenhe) {
+        this.shenhe = shenhe;
+    }
+
     @Override
     public String toString() {
         return "shenhelist{" +
@@ -80,6 +89,7 @@ public class shenhelist implements Serializable {
                 ", biaoid=" + biaoid +
                 ", xiugaiadmin='" + xiugaiadmin + '\'' +
                 ", xiugaitime=" + xiugaitime +
+                ", shenhe=" + shenhe +
                 '}';
     }
 }

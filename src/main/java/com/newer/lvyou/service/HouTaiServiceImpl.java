@@ -164,12 +164,42 @@ public class HouTaiServiceImpl implements HouTaiService {
     }
 
     @Override
-    public List<shenhelist> selectSHL(String name, Integer pageNo, Integer pageSize, String beginDate, String endDate) {
-        return houtaiMapper.selectSHL(name,pageNo,pageSize,beginDate,endDate);
+    public List<shenhelist> selectSHL(String name, Integer pageNo, Integer pageSize, String beginDate, String endDate,String shzt) {
+        return houtaiMapper.selectSHL(name,pageNo,pageSize,beginDate,endDate,shzt);
     }
 
     @Override
-    public int countSHL(String name, String beginDate, String endDate) {
-        return houtaiMapper.countSHL(name,beginDate,endDate);
+    public int countSHL(String name, String beginDate, String endDate,String shzt) {
+        return houtaiMapper.countSHL(name,beginDate,endDate,shzt);
+    }
+
+    @Override
+    public shenhelist selectXGB(int id) {
+        return houtaiMapper.selectXGB(id);
+    }
+
+    @Override
+    public int updJDSH(int id, int shenhe) {
+        return houtaiMapper.updJDSH(id,shenhe);
+    }
+
+    @Override
+    public int updTDSH(int id, int shenhe) {
+        return houtaiMapper.updTDSH(id,shenhe);
+    }
+
+    @Override
+    public int updTPSH(int id, int shenhe) {
+        return houtaiMapper.updTPSH(id,shenhe);
+    }
+
+    @Override
+    public int updSH(int id, int shenhe) {
+        return houtaiMapper.updSH(id,shenhe);
+    }
+
+    @Override
+    public int updGJLSH(int id, int shenhe) {
+        return houtaiMapper.updGJLSH(id,shenhe);
     }
 }

@@ -27,9 +27,12 @@
         select * from shenhelist
         <where>
             1=1
+            <if test="shzt!=null and shzt!=''">
+                and shenhe = #{shzt}
+            </if>
             <if test="name!=null and name!=''">
                 and xiugaibiao like concat('%',concat(#{name},'%'))
-                 or  and xiugaiadmin like concat('%',concat(#{name},'%'))
+                 or xiugaiadmin like concat('%',concat(#{name},'%'))
             </if>
             <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
                 and xiadantime between #{beginDate} and #{endDate}
@@ -42,9 +45,12 @@
         SELECT COUNT(*) FROM shenhelist
         <where>
             1=1
+            <if test="shzt!=null and shzt!=''">
+                and shenhe = #{shzt}
+            </if>
             <if test="name!=null and name!=''">
                 and xiugaibiao like concat('%',concat(#{name},'%'))
-                or  and xiugaiadmin like concat('%',concat(#{name},'%'))
+                or xiugaiadmin like concat('%',concat(#{name},'%'))
             </if>
             <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
                 and xiadantime between #{beginDate} and #{endDate}

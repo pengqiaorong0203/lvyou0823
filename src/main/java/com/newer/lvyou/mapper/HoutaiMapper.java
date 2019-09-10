@@ -103,9 +103,34 @@ public interface HoutaiMapper {
                                 @Param("pageNo")Integer pageNo,
                                 @Param("pageSize")Integer pageSize,
                                 @Param("beginDate")String beginDate,
-                                @Param("endDate")String endDate);//查找所有需要审核的列表
+                                @Param("endDate")String endDate,
+                                @Param("shzt")String shzt);//查找所有需要审核的列表
 
     public int countSHL(@Param("name") String name,
                         @Param("beginDate")String beginDate,
-                        @Param("endDate")String endDate);//审核列表数量
+                        @Param("endDate")String endDate,
+                        @Param("shzt")String shzt);//审核列表数量
+
+    @Select("select * from shenhelist where id = #{id}")
+    public shenhelist selectXGB(@Param("id")int id); //根据审核表id查找单条审核记录
+
+    @Update("update shenhelist set shenhe = #{shenhe} where id = #{id}")
+    public int updSH(@Param("id") int id,
+                     @Param("shenhe")int shenhe);  //更改审核状态
+
+    @Update("update guojialist set shenhe = #{shenhe} where id = #{id}")
+    public int updGJLSH(@Param("id") int id,
+                     @Param("shenhe")int shenhe);  //更改国家列表审核状态
+
+    @Update("update jiudian set shenhe = #{shenhe} where id = #{id}")
+    public int updJDSH(@Param("id") int id,
+                        @Param("shenhe")int shenhe);  //更改酒店列表审核状态
+
+    @Update("update tuandui set shenhe = #{shenhe} where id = #{id}")
+    public int updTDSH(@Param("id") int id,
+                        @Param("shenhe")int shenhe);  //更改团队列表审核状态
+
+    @Update("update tupian set shenhe = #{shenhe} where id = #{id}")
+    public int updTPSH(@Param("id") int id,
+                        @Param("shenhe")int shenhe);  //更改图片列表审核状态
 }

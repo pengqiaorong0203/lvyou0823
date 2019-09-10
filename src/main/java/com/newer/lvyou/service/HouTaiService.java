@@ -2,6 +2,7 @@ package com.newer.lvyou.service;
 
 import com.newer.lvyou.domain.*;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -71,9 +72,28 @@ public interface HouTaiService {
                                 @Param("pageNo")Integer pageNo,
                                 @Param("pageSize")Integer pageSize,
                                 @Param("beginDate")String beginDate,
-                                @Param("endDate")String endDate);
+                                @Param("endDate")String endDate,
+                                @Param("shzt")String shzt);
 
-    public int countSHL( @Param("name") String name,
+    public int countSHL(@Param("name") String name,
                         @Param("beginDate")String beginDate,
-                        @Param("endDate")String endDate);
+                        @Param("endDate")String endDate,
+                        @Param("shzt")String shzt);
+
+    public shenhelist selectXGB(@Param("id")int id);
+
+    public int updJDSH(@Param("id") int id,
+                       @Param("shenhe")int shenhe);  //更改酒店列表审核状态
+
+    public int updTDSH(@Param("id") int id,
+                       @Param("shenhe")int shenhe);  //更改团队列表审核状态
+
+    public int updTPSH(@Param("id") int id,
+                       @Param("shenhe")int shenhe);  //更改图片列表审核状态
+
+    public int updSH(@Param("id") int id,
+                     @Param("shenhe")int shenhe);  //更改审核状态
+
+    public int updGJLSH(@Param("id") int id,
+                        @Param("shenhe")int shenhe);  //更改国家列表审核状态
 }
