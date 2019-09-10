@@ -1,5 +1,6 @@
 package com.newer.lvyou.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.user;
 import com.newer.lvyou.service.HouTaiuserService;
@@ -115,5 +116,22 @@ public class HouTaiUserController {
     public ResponseEntity<?> findOneUser(Integer id){
         user user = houTaiuserService.findOneUser(id);
         return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+
+    /**
+     * 批量删除管理员数据
+     * @param xzadmin
+     * @return
+     */
+    @GetMapping("/chooseAllUser")
+    public ResponseEntity<?> chooseAllUser(String xzadmin){
+        JSONArray jsonArray = JSONArray.parseArray(xzadmin);
+        System.out.println("打印这个数组："+xzadmin);
+        int m = 0;
+        for (Object jsonArrays:jsonArray){
+            int k = (int)jsonArrays;
+            m = houTaiuserService.userDelete(k);
+        }
+        return new ResponseEntity<>(m,HttpStatus.OK);
     }
 }

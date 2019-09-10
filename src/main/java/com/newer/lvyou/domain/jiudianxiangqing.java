@@ -9,7 +9,7 @@ public class jiudianxiangqing implements Serializable {
     private int jiuid;       //酒店id
     private String jdtupian; //酒店图片
     private String jdname;   //酒店名称
-    private String info;     //酒店详情描述
+        private String info;     //酒店详情描述
     private int jiage;       //酒店价格
 
     public jiudianxiangqing() {

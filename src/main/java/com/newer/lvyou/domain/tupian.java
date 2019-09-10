@@ -9,16 +9,28 @@ public class tupian implements Serializable {
     private int guoid;    //国家id
     private String tpurl; //图片链接
     private int shenhe;   //后台审核
+    private String guoname;
 
-    public tupian() {
-    }
-
-    public tupian(int id, int guoid, String tpurl,int shenhe) {
+    public tupian(int id, int guoid, String tpurl, int shenhe, String guoname) {
         this.id = id;
         this.guoid = guoid;
         this.tpurl = tpurl;
         this.shenhe = shenhe;
+        this.guoname = guoname;
     }
+
+    public String getGuoname() {
+        return guoname;
+    }
+
+    public void setGuoname(String guoname) {
+        this.guoname = guoname;
+    }
+
+    public tupian() {
+    }
+
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -63,6 +75,7 @@ public class tupian implements Serializable {
                 ", guoid=" + guoid +
                 ", tpurl='" + tpurl + '\'' +
                 ", shenhe=" + shenhe +
+                ", guoname='" + guoname + '\'' +
                 '}';
     }
 }

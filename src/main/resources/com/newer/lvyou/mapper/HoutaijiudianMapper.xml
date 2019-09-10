@@ -6,15 +6,16 @@
 <mapper namespace="com.newer.lvyou.mapper.HouTaijiudianMapper">
     <select id="findAlljiudianFenYe" resultType="jiudian">
         select * from jiudian
+        /*SELECT id,guoname,jdname,info,tupian,jiage,shenhe FROM (SELECT d.id,e.guoname,d.jdname,d.info,d.tupian,d.shenhe,d.jiage  FROM guojialist e,jiudian d  WHERE e.id=d.id) a*/
         <where>
             1=1
-            <!--使用模糊查询用户数据-->
+            <!--使用模糊查询数据-->
             <if test="jdname!=null and jdname!=''">
                 and jdname like concat('%',concat(#{jdname},'%'))
             </if>
-          <!--  &lt;!&ndash;使用模糊查询日期数据&ndash;&gt;
-            <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
-                and xiadantime between #{beginDate} and #{endDate}
+            <!--&lt;!&ndash;使用模糊查询数据&ndash;&gt;
+            <if test="guoname!=null and guoname!=''">
+                and guoname like concat('%',concat(#{guoname},'%'))
             </if>-->
             limit #{pageNo},#{pageSize}
         </where>
@@ -22,11 +23,15 @@
 
     <select id="jiudianCount" resultType="int">
         SELECT COUNT(*) FROM jiudian
+        /*SELECT COUNT(*) FROM(SELECT d.id,e.guoname,d.jdname,d.info,d.tupian,d.shenhe,d.jiage  FROM guojialist e,jiudian d  WHERE e.id=d.id) a*/
         <where>
             1=1
             <if test="jdname!=null and jdname!=''">
                 and jdname like concat('%',concat(#{jdname},'%'))
             </if>
+            <!--<if test="guoname!=null and guoname!=''">
+                and guoname like concat('%',concat(#{guoname},'%'))
+            </if>-->
         </where>
     </select>
 

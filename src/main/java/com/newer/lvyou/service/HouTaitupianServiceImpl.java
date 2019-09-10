@@ -1,6 +1,5 @@
 package com.newer.lvyou.service;
 
-import com.newer.lvyou.domain.dingdan;
 import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.tupian;
 import com.newer.lvyou.mapper.HoutaiTupianMapper;
@@ -82,7 +81,7 @@ public class HouTaitupianServiceImpl implements HouTaitupianService{
      * @return
      */
     @Override
-    public dingdan tupianSelect(Integer id) {
+    public tupian tupianSelect(Integer id) {
         return houtaiTupianMapper.tupianSelect(id);
     }
 
@@ -94,4 +93,6 @@ public class HouTaitupianServiceImpl implements HouTaitupianService{
     public List<guojialist> queryGuoJiaList() {
         return houtaiTupianMapper.queryGuoJiaList();
     }
+
+
 }

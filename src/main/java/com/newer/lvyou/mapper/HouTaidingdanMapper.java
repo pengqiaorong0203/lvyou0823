@@ -21,9 +21,12 @@ public interface HouTaidingdanMapper {
      * @param uname
      * @param pageNo
      * @param pageSize
+     * @param beginDate
+     * @param endDate
      * @return
      */
     public List<dingdan> findAlldingdanFenYe(@Param("uname") String uname,
+                                             @Param("state")Integer state,
                                              @Param("pageNo")Integer pageNo,
                                              @Param("pageSize")Integer pageSize,
                                              @Param("beginDate")String beginDate,
@@ -34,8 +37,35 @@ public interface HouTaidingdanMapper {
      * @return
      */
     public int dingdanCount(@Param("uname")String uname,
+                            @Param("state")Integer state,
                             @Param("beginDate")String beginDate,
                             @Param("endDate")String endDate);
+
+    /**
+     * 根据订单状态进行分页
+     * @param state
+     * @param pageNo
+     * @param pageSize
+     * @param beginDate
+     * @param endDate
+     * @return
+     *//*
+    public List<dingdan> findAlldingdanStateFenYe(@Param("uname") String uname,
+                                             @Param("state")Integer state,
+                                             @Param("pageNo")Integer pageNo,
+                                             @Param("pageSize")Integer pageSize,
+                                             @Param("beginDate")String beginDate,
+                                             @Param("endDate")String endDate);
+
+    *//**
+     * 根据state统计订单总数量
+     * @return
+     *//*
+    public int dingdanStateCount(@Param("uname") String uname,
+                            @Param("state")Integer state,
+                            @Param("beginDate")String beginDate,
+                            @Param("endDate")String endDate);*/
+
 
     /**
      * 新增订单信息;

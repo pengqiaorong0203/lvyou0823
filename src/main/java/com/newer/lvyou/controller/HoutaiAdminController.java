@@ -213,7 +213,7 @@ public class HoutaiAdminController {
     }
 
     /**
-     * 根据登录管理员id查询详细信息
+     * 根据登录管理员id查询详细信息(查询个人登录用户名跟密码)
      * @param id
      * @return
      */

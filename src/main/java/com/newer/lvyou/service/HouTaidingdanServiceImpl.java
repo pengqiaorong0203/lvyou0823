@@ -30,8 +30,8 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
      * @return
      */
     @Override
-    public List<dingdan> findAlldingdanFenYe(String uname, Integer pageNo, Integer pageSize, String beginDate,String endDate) {
-        return houTaidingdanMapper.findAlldingdanFenYe(uname,pageNo,pageSize,beginDate,endDate);
+    public List<dingdan> findAlldingdanFenYe(String uname,Integer state,Integer pageNo, Integer pageSize, String beginDate, String endDate) {
+        return houTaidingdanMapper.findAlldingdanFenYe(uname,state,pageNo,pageSize,beginDate,endDate);
     }
 
     /**
@@ -89,7 +89,33 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
      * @return
      */
     @Override
-    public int dingdanCount(String uname,String beginDate,String endDate) {
-        return houTaidingdanMapper.dingdanCount(uname,beginDate,endDate);
+    public int dingdanCount(String uname,Integer state,String beginDate,String endDate) {
+        return houTaidingdanMapper.dingdanCount(uname,state,beginDate,endDate);
     }
+
+    /**
+     * 根据订单状态进行分页
+     * @param state
+     * @param pageNo
+     * @param pageSize
+     * @param beginDate
+     * @param endDate
+     * @return
+     *//*
+    @Override
+    public List<dingdan> findAlldingdanStateFenYe(Integer state,String uname, Integer pageNo, Integer pageSize, String beginDate, String endDate) {
+        return houTaidingdanMapper.findAlldingdanStateFenYe(uname,state,pageNo,pageSize,beginDate,endDate);
+    }
+
+    *//**
+     *根据state统计订单总数量
+     * @param state
+     * @param beginDate
+     * @param endDate
+     * @return
+     *//*
+    @Override
+    public int dingdanStateCount(Integer state,String uname,String beginDate, String endDate) {
+        return houTaidingdanMapper.dingdanStateCount(uname,state,beginDate,endDate);
+    }*/
 }

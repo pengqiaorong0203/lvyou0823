@@ -60,7 +60,7 @@ public class HouTaiteamServiceImpl implements HouTaiteamService{
      * @return
      */
     @Override
-    public int userUpdate(tuandui tuandui) {
+    public int tuanduiUpdate(tuandui tuandui) {
         return houTaiTeamMapper.tuanduiUpdate(tuandui);
     }
 

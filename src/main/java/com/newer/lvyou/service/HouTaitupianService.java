@@ -1,6 +1,5 @@
 package com.newer.lvyou.service;
 
-import com.newer.lvyou.domain.dingdan;
 import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.tupian;
 import org.apache.ibatis.annotations.Param;
@@ -58,11 +57,13 @@ public interface HouTaitupianService {
      * @param id
      * @return
      */
-    public dingdan tupianSelect(@Param("id") Integer id);
+    public tupian tupianSelect(@Param("id") Integer id);
 
     /**
      * 动态查询所有国家名字
      * @return
      */
     public List<guojialist> queryGuoJiaList();
+
+
 }

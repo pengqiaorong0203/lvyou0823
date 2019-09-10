@@ -1,6 +1,5 @@
 package com.newer.lvyou.mapper;
 
-import com.newer.lvyou.domain.dingdan;
 import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.tupian;
 import org.apache.ibatis.annotations.*;
@@ -65,8 +64,9 @@ public interface HoutaiTupianMapper {
      * @param id
      * @return
      */
-    @Select("select * from tupian where id=#{id}")
-    public dingdan tupianSelect(@Param("id") Integer id);
+    @Select("SELECT t.id,t.guoid,t.tpurl,g.guoname FROM tupian t,guojialist g WHERE t.guoid = g.id AND t.id = #{id}")
+    /*@Select("select * from tupian where id=#{id}")*/
+    public tupian tupianSelect(@Param("id") Integer id);
 
     /**
      * 动态查询所有国家名字

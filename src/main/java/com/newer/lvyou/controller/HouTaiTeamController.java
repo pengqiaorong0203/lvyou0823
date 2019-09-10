@@ -85,7 +85,7 @@ public class HouTaiTeamController {
      */
     @GetMapping("/tuanduiUpdate")
     public ResponseEntity<?> tuanduiUpdate(tuandui tuandui) {
-        int i = houTaiteamService.userUpdate(tuandui);
+        int i = houTaiteamService.tuanduiUpdate(tuandui);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
 
@@ -107,6 +107,7 @@ public class HouTaiTeamController {
     @GetMapping("/findOneTuandui")
     public ResponseEntity<?> findOneTuandui(Integer id){
         tuandui tuandui = houTaiteamService.findOneTuandui(id);
+        /*System.out.println("团队信息："+tuandui);*/
         return new ResponseEntity<>(tuandui,HttpStatus.OK);
     }
 
@@ -126,7 +127,7 @@ public class HouTaiTeamController {
         if (!uplx.isEmpty()){
             try {
                 /*文件保存路径*/
-                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/团队头像/"+tname+".jpg";
+                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+tname+".jpg";
                 /*转存路径*/
                 uplx.transferTo(new File(filePath));
                 filePath = "img/"+tname+".jpg";
@@ -137,9 +138,49 @@ public class HouTaiTeamController {
         tuandui tuandui = new tuandui();
         tuandui.setTname(tname);
         tuandui.setInfo(info);
+        tuandui.setToux(filePath);
         int count = houTaiteamService.tuanduiAdd(tuandui);
         System.out.println("打印保存路径1...："+filePath);
         System.out.println("打印保存路径2...："+filePath);
+        System.out.println("打印保存路径3...："+tuandui);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    /**
+     * 修改图片信息
+     * @param tname
+     * @param info
+     * @param
+     * @return
+     */
+    @PostMapping("/tuanduiUpdateList")
+    public ResponseEntity<?> tuanduiUpdateList(@RequestParam(value = "file",required = false)MultipartFile uplx,
+                                               @RequestParam("tname") String tname,
+                                               @RequestParam("info") String info,
+                                               @RequestParam("tp")String tp
+    ){
+        String filePath = null;
+        if (!uplx.isEmpty()){
+            try {
+                /*文件保存路径*/
+                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+tname+".jpg";
+                /*转存路径*/
+                uplx.transferTo(new File(filePath));
+                filePath = "img/"+tname+".jpg";
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            filePath = tp;
+        }
+        tuandui tuandui = new tuandui();
+        tuandui.setTname(tname);
+        tuandui.setInfo(info);
+        tuandui.setToux(filePath);
+        int count = houTaiteamService.tuanduiUpdate(tuandui);
+        System.out.println("打印保存路径1...："+filePath);
+        System.out.println("打印保存路径2...："+filePath);
+        System.out.println("打印保存路径3...："+tuandui);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 }

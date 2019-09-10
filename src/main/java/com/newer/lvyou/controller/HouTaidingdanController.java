@@ -36,6 +36,7 @@ public class HouTaidingdanController {
      */
     @GetMapping("/queryDingdanList")
     public ResponseEntity<?> queryDingdanList(String name,
+                                              Integer state,
                                               String beginDate,
                                               String endDate,
                                               @RequestParam("iDisplayStart")Integer pageNo,
@@ -47,7 +48,7 @@ public class HouTaidingdanController {
         System.out.println("用户姓名:"+uname);
         System.out.println("下单开始时间:"+beginDate);
         System.out.println("下单结束时间:"+endDate);
-        List<dingdan> dingdanList = houTaidingdanService.findAlldingdanFenYe(uname,pageNo,pageSize,beginDate,endDate);
+        List<dingdan> dingdanList = houTaidingdanService.findAlldingdanFenYe(uname,state,pageNo,pageSize,beginDate,endDate);
         for (dingdan cards :dingdanList){//循环遍历集合，将集合中的值重新赋值在页面上
             //用户邮箱传到前端页面做处理
             String mailbox = cards.getEmail().substring(0,8);
@@ -57,7 +58,7 @@ public class HouTaidingdanController {
             cards.setPhone(cards.getPhone().replaceAll(phone,"****"));
         }
         JSONObject jsonObject = new JSONObject();
-        int totol = houTaidingdanService.dingdanCount(uname,beginDate,endDate);
+        int totol = houTaidingdanService.dingdanCount(uname,state,beginDate,endDate);
         jsonObject.put("data",dingdanList);
         jsonObject.put("iTotalDisplayRecords",totol);
         jsonObject.put("iTotalRecords",totol);
@@ -69,10 +70,59 @@ public class HouTaidingdanController {
      * @return
      */
     @GetMapping("/dingdanCount")
-    public ResponseEntity<?> dingdanCount(String uname, String beginDate,String endDate){
-        int count = houTaidingdanService.dingdanCount(uname,beginDate,endDate);
+    public ResponseEntity<?> dingdanCount(String uname,Integer state,String beginDate,String endDate){
+        int count = houTaidingdanService.dingdanCount(uname,state,beginDate,endDate);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
+
+    /**
+     * 根据订单状态进行分页
+     * @param name
+     * @param pageNo
+     * @param pageSize
+     * @return
+     *//*
+    @GetMapping("/queryDingdanStateList")
+    public ResponseEntity<?> queryDingdanStateList(String name,
+                                                   Integer state,
+                                                   String beginDate,
+                                                   String endDate,
+                                                   @RequestParam("iDisplayStart")Integer pageNo,
+                                                   @RequestParam("iDisplayLength")Integer pageSize){
+        String uname = null;
+        if (name!=null){
+            uname = name;
+        }
+        System.out.println("用户姓名:"+uname);
+        System.out.println("下单开始时间:"+beginDate);
+        System.out.println("下单结束时间:"+endDate);
+        List<dingdan> dingdanList = houTaidingdanService.findAlldingdanStateFenYe(state,uname,pageNo,pageSize,beginDate,endDate);
+        for (dingdan cards :dingdanList){//循环遍历集合，将集合中的值重新赋值在页面上
+            //用户邮箱传到前端页面做处理
+            String mailbox = cards.getEmail().substring(0,8);
+            cards.setEmail(cards.getEmail().replaceAll(mailbox,"*********"));
+            //用户手机号码传到前端页面做处理
+            String phone = cards.getPhone().substring(3,8);
+            cards.setPhone(cards.getPhone().replaceAll(phone,"****"));
+        }
+        JSONObject jsonObject = new JSONObject();
+        int totol = houTaidingdanService.dingdanStateCount(state,uname,beginDate,endDate);
+        jsonObject.put("data",dingdanList);
+        jsonObject.put("iTotalDisplayRecords",totol);
+        jsonObject.put("iTotalRecords",totol);
+        return new ResponseEntity<>(jsonObject,HttpStatus.OK);
+    }
+
+    *//**
+     * 统计订单总数量
+     * @return
+     *//*
+    @GetMapping("/dingdanStateCount")
+    public ResponseEntity<?> dingdanStateCount(Integer state,String uname,String beginDate,String endDate){
+        int count = houTaidingdanService.dingdanStateCount(state,uname,beginDate,endDate);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }*/
+
 
 
 

@@ -111,4 +111,56 @@ public class HouTaitupianController {
         int i = houTaitupianService.tupianDelete(id);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
+
+    /**
+     * 查询单条信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/tupianSelect")
+    public ResponseEntity<?> tupianSelect(Integer id){
+        tupian tupian = houTaitupianService.tupianSelect(id);
+        return new ResponseEntity<>(tupian,HttpStatus.OK);
+    }
+
+    /**
+     *修改图片信息
+     * @param file
+     * @param guoname
+     * @param id
+     * @param tp
+     * @return
+     */
+    @PostMapping("/updtupianList")
+    public ResponseEntity<?> updtupianList(@RequestParam(value = "file",required = false)MultipartFile file,
+                                           @RequestParam("guoname")String guoname,
+                                           @RequestParam("id")int id,
+                                           @RequestParam("guoid")int guoid,
+                                           @RequestParam("tp")String tp){
+        String filePath = null;
+        if(file!=null) {
+            if (!file.isEmpty()) {
+                try {
+                    // 文件保存路径
+                    filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+guoname+".jpg";
+                    System.out.println(filePath);
+                    // 转存文件
+                    file.transferTo(new File(filePath));
+                    filePath = "img/" + guoname + ".jpg";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else{
+            filePath = tp;
+        }
+        tupian tupian = new tupian();
+        tupian.setId(id);
+        tupian.setGuoname(guoname);
+        tupian.setTpurl(filePath);
+        tupian.setGuoid(guoid);
+        System.out.println(tupian);
+        int count = houTaitupianService.tupianUpdate(tupian);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
 }

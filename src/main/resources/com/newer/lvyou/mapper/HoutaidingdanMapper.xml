@@ -12,6 +12,10 @@
             <if test="uname!=null and uname!=''">
                 and uname like concat('%',concat(#{uname},'%'))
             </if>
+            <!--使用模糊查询用户数据-->
+            <if test="state!=null and state!=''">
+                and state like concat('%',concat(#{state},'%'))
+            </if>
             <!--使用模糊查询日期数据-->
             <if test="beginDate!=null and beginDate!='' and endDate!=null and endDate!=''">
                 and xiadantime between #{beginDate} and #{endDate}

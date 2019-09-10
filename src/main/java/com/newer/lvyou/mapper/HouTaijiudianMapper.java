@@ -1,10 +1,8 @@
 package com.newer.lvyou.mapper;
 
 import com.newer.lvyou.domain.jiudian;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import com.newer.lvyou.domain.jiudianxiangqing;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public interface HouTaijiudianMapper {
      * @return
      */
     @Insert("insert into jiudian(guoid,jdname,info,tupian,shenhe,jiage) " +
-            "values(#{guoid},#{jdname},#{info},#{tupian},#{0},#{jiage})")
+            "values(#{guoid},#{jdname},#{info},#{tupian},#{shenhe},#{jiage})")
     public int jiudianAdd(jiudian jiudian);
 
     /**
@@ -54,4 +52,43 @@ public interface HouTaijiudianMapper {
      * @return
      */
     public int jiudianCount(@Param("jdname") String jdname);
+
+    /**
+     * 动态加载所有酒店名字
+     * @return
+     */
+    @Select("SELECT jdname FROM jiudianxiangqing")
+    public List<jiudianxiangqing> jiudianxiangqingList();
+
+    /**
+     * 动态加载所有国家ID
+     * @return
+     */
+    @Select("SELECT guoid FROM jiudian")
+    public List<jiudian> jiudianID();
+
+
+    /**
+     * 查询单条酒店信息
+     * @param id
+     * @return
+     */
+    @Select("select * from jiudianxiangqing where jiuid=#{id}")
+    public List<jiudianxiangqing> jiudianxiangqingOne(Integer id);
+
+    /**
+     * 联动查询国家ID跟国家名字
+     * @param id
+     * @return
+     */
+    @Select("SELECT guoname FROM guojialist WHERE id=#{id}")
+    public String findOneJiuDian(Integer id);
+
+    /**
+     *根据酒店ID查询单条酒店信息
+     * @param id
+     * @return
+     */
+    @Select("SELECT * FROM jiudian WHERE id =#{id}")
+    public jiudian findOneJiuDianInfo(Integer id);
 }

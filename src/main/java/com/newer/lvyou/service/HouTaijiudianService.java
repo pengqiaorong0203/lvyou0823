@@ -1,6 +1,7 @@
 package com.newer.lvyou.service;
 
 import com.newer.lvyou.domain.jiudian;
+import com.newer.lvyou.domain.jiudianxiangqing;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -44,4 +45,37 @@ public interface HouTaijiudianService {
      * @return
      */
     public int jiudianCount(@Param("jdname") String jdname);
+
+    /**
+     * 动态加载所有酒店名字
+     * @return
+     */
+    public List<jiudianxiangqing> jiudianxiangqingList();
+
+    /**
+     * 动态加载所有国家ID
+     * @return
+     */
+    public List<jiudian> jiudianID();
+
+    /**
+     * 查询单条酒店信息
+     * @param id
+     * @return
+     */
+    public List<jiudianxiangqing> jiudianxiangqingOne(Integer id);
+
+    /**
+     * 联动查询国家ID跟国家名字
+     * @param id
+     * @return
+     */
+    public String findOneJiuDian(Integer id);
+
+    /**
+     *根据酒店ID查询单条酒店信息
+     * @param id
+     * @return
+     */
+    public jiudian findOneJiuDianInfo(Integer id);
 }

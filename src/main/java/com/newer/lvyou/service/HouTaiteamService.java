@@ -43,7 +43,7 @@ public interface HouTaiteamService {
      * @param tuandui
      * @return
      */
-    public int userUpdate(tuandui tuandui);
+    public int tuanduiUpdate(tuandui tuandui);
 
     /**
      * 统计团队总数量

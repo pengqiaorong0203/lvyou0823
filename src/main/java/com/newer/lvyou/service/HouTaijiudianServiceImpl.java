@@ -1,6 +1,7 @@
 package com.newer.lvyou.service;
 
 import com.newer.lvyou.domain.jiudian;
+import com.newer.lvyou.domain.jiudianxiangqing;
 import com.newer.lvyou.mapper.HouTaijiudianMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class HouTaijiudianServiceImpl implements HouTaijiudianService {
      * @return
      */
     @Override
-    public List<jiudian> findAlljiudianFenYe(String jdname, int pageNo, int pageSize) {
+    public List<jiudian> findAlljiudianFenYe(String jdname,int pageNo, int pageSize) {
         return houTaijiudianMapper.findAlljiudianFenYe(jdname,pageNo,pageSize);
     }
 
@@ -63,5 +64,53 @@ public class HouTaijiudianServiceImpl implements HouTaijiudianService {
     @Override
     public int jiudianCount(String jdname) {
         return houTaijiudianMapper.jiudianCount(jdname);
+    }
+
+    /**
+     * 动态加载所有酒店名字
+     * @return
+     */
+    @Override
+    public List<jiudianxiangqing> jiudianxiangqingList() {
+        return houTaijiudianMapper.jiudianxiangqingList();
+    }
+
+    /**
+     * 动态加载所有国家ID
+     * @return
+     */
+    @Override
+    public List<jiudian> jiudianID() {
+        return houTaijiudianMapper.jiudianID();
+    }
+
+    /**
+     * 查询单条酒店信息
+     * @param id
+     * @return
+     */
+    @Override
+    public List<jiudianxiangqing> jiudianxiangqingOne(Integer id) {
+        return houTaijiudianMapper.jiudianxiangqingOne(id);
+    }
+
+    /**
+     * 联动查询国家ID跟国家名字
+     * @param id
+     * @return
+     */
+    @Override
+    public String findOneJiuDian(Integer id) {
+        return houTaijiudianMapper.findOneJiuDian(id);
+    }
+
+    /**
+     *根据酒店ID查询单条酒店信息
+     * @param id
+     * @return
+     */
+    @Override
+    public jiudian findOneJiuDianInfo(Integer id) {
+        return houTaijiudianMapper.findOneJiuDianInfo(id);
     }
 }
