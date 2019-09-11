@@ -249,24 +249,32 @@ public class HoutaiAdminController {
             return new ResponseEntity<>(m,HttpStatus.OK);
     }
 
+    @GetMapping("/selectAdminByUsername")
+    public ResponseEntity<?> selectAdminByUsername(String name){
+        admin a = houTaiAdminService.selectAdminByUsername(name);
+        return  new ResponseEntity<>(a, HttpStatus.OK);
+    }
+
     /*测试获取token信息*/
     @PostMapping("/loginTest1")
-    public ResponseEntity loginTest(@Param("name") String name,
-                                    @Param("pwd") String pwd){
-
-        if ("admin".equals(name)&&"admin".equals(pwd)){
-            //此处登录如果成功
-            String token = jwtTokenUtil.createJwt(name,pwd);
-            return new ResponseEntity<>(token,HttpStatus.OK);
+    public ResponseEntity loginTest(@RequestParam("name") String name,
+                                    @RequestParam("pwd") String pwd,
+                                    @RequestParam("yzm") String yzm){
+        int i = 3;
+        if(string.equals(yzm)) {
+            admin a = houTaiAdminService.findBynamePassword(name,pwd);
+            if (a!=null) {
+                //此处登录如果成功
+                String token = jwtTokenUtil.createJwt(name,pwd);
+                System.out.println(token);
+                System.out.println(token);
+                return new ResponseEntity<>(token, HttpStatus.OK);
+            }
+            i = 2;
+            return new ResponseEntity<>(i, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(i, HttpStatus.OK);
         }
-        /*Admins admins = adminsService.findByPwdAname(aname,pwd);
-        if (admins!=null){
-            //如果登录成功
-            String token = jwtTokenUtil.createJwt(aname,pwd);
-            return new ResponseEntity<>(token,HttpStatus.OK);
-        }
-        */
-        return new ResponseEntity<>("失败",HttpStatus.OK);
     }
 
     /*获取token,根据token获取用户信息*/
@@ -275,13 +283,9 @@ public class HoutaiAdminController {
         String token = request.getHeader(header);
         System.out.println("是否进入方法。。。。。。。。。。。。。。***********");
         if (token!=null){
-            /*Claims claims = jwtTokenUtil.parseJWT(token);
-            System.out.println(claims.get("realname")
-            +","+claims.get("sex"));
-            System.out.println(claims.getIssuer());*/
             String name = jwtTokenUtil.getUsernameByToken(token);
-            System.out.println("是否输出**********"+name);
-            return new ResponseEntity<>(name,HttpStatus.OK);
+            admin a = houTaiAdminService.selectAdminByUsername(name);
+            return new ResponseEntity<>(a,HttpStatus.OK);
         }
         return new ResponseEntity<>("失败",HttpStatus.OK);
     }

@@ -133,4 +133,7 @@ public interface HoutaiMapper {
     @Update("update tupian set shenhe = #{shenhe} where id = #{id}")
     public int updTPSH(@Param("id") int id,
                         @Param("shenhe")int shenhe);  //更改图片列表审核状态
+
+    @Insert("insert into shenhelist(xiugaibiao,biaoid,xiugaiadmin,xiugaitime) values(#{xiugaibiao},#{biaoid},#{xiugaiadmin},#{xiugaitime})")
+    public int addSHL(shenhelist shl);       //添加审核列表
 }

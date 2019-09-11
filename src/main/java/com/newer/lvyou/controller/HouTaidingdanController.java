@@ -36,7 +36,7 @@ public class HouTaidingdanController {
      */
     @GetMapping("/queryDingdanList")
     public ResponseEntity<?> queryDingdanList(String name,
-                                              Integer state,
+                                              String state,
                                               String beginDate,
                                               String endDate,
                                               @RequestParam("iDisplayStart")Integer pageNo,
@@ -70,7 +70,7 @@ public class HouTaidingdanController {
      * @return
      */
     @GetMapping("/dingdanCount")
-    public ResponseEntity<?> dingdanCount(String uname,Integer state,String beginDate,String endDate){
+    public ResponseEntity<?> dingdanCount(String uname,String state,String beginDate,String endDate){
         int count = houTaidingdanService.dingdanCount(uname,state,beginDate,endDate);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }

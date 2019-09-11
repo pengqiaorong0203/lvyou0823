@@ -96,4 +96,6 @@ public interface HouTaiService {
 
     public int updGJLSH(@Param("id") int id,
                         @Param("shenhe")int shenhe);  //更改国家列表审核状态
+
+    public int addSHL(shenhelist shl);
 }

@@ -67,4 +67,6 @@ public interface HouTaiAdminService {
      * @return
      */
     public admin adminSelectOne(@Param("id") Integer id);
+
+    public admin selectAdminByUsername(@Param("name")String name);
 }

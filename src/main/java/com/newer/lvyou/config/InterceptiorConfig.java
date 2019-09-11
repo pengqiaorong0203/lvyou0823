@@ -11,8 +11,8 @@ public class InterceptiorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //“/**”代表多层的任意路径   excludePathPatterns 不拦截的可以放这里
-        registry.addInterceptor(createInterceptor()).addPathPatterns("/java/**").
-                excludePathPatterns("/drawTable","/api/findBynamePassword","/api/img");
+        registry.addInterceptor(createInterceptor()).addPathPatterns("/**").
+                excludePathPatterns("/drawTable","/api/loginTest1","/api/img");
     }
 
     @Bean

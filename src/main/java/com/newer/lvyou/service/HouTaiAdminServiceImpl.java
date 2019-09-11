@@ -95,4 +95,9 @@ public class HouTaiAdminServiceImpl implements HouTaiAdminService{
     public admin adminSelectOne(Integer id) {
         return houTaiAdminMapper.adminSelectOne(id);
     }
+
+    @Override
+    public admin selectAdminByUsername(String name) {
+        return houTaiAdminMapper.selectAdminByUsername(name);
+    }
 }

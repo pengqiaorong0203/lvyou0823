@@ -26,7 +26,7 @@ public interface HouTaidingdanMapper {
      * @return
      */
     public List<dingdan> findAlldingdanFenYe(@Param("uname") String uname,
-                                             @Param("state")Integer state,
+                                             @Param("state")String state,
                                              @Param("pageNo")Integer pageNo,
                                              @Param("pageSize")Integer pageSize,
                                              @Param("beginDate")String beginDate,
@@ -37,7 +37,7 @@ public interface HouTaidingdanMapper {
      * @return
      */
     public int dingdanCount(@Param("uname")String uname,
-                            @Param("state")Integer state,
+                            @Param("state")String state,
                             @Param("beginDate")String beginDate,
                             @Param("endDate")String endDate);
 
