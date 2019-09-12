@@ -4,11 +4,23 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.user;
 import com.newer.lvyou.service.HouTaiuserService;
+import com.newer.lvyou.util.JwtTokenUtil;
+import com.newer.lvyou.util.SecurityCode;
+import com.newer.lvyou.util.SecurityImage;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -17,6 +29,14 @@ public class HouTaiUserController {
 
     @Autowired
     private HouTaiuserService houTaiuserService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Value("${auth.header}") //application.yml 获取auth.header的值
+    private String header;
+    private String str;//程序输出的验证码
+    private String mb;
 
     /**
      * 显示所有用户以及信息
@@ -70,7 +90,9 @@ public class HouTaiUserController {
      */
     @PostMapping("/userAdd")
     public ResponseEntity<?> userAdd(user user) {
+        System.err.println(user);
         int i = houTaiuserService.userAdd(user);
+        System.out.println(i);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
 
@@ -108,6 +130,49 @@ public class HouTaiUserController {
     }
 
     /**
+     * 登陆
+     * @param username
+     * @param pwd
+     * @param
+     * @return
+     */
+    @PostMapping("/getAdmin")
+    public ResponseEntity<?> checkName(@RequestParam("username") String username,
+                                       @RequestParam("pwd")String pwd
+
+    ){
+        String token;
+        user user=houTaiuserService.login(username,pwd);
+        System.out.println(user+"====>");
+        if (user!=null){//用户名和密码在用户表中存
+             token=jwtTokenUtil.createJwt(username);
+          System.out.println("生成token成功:{}"+token);
+
+          return new ResponseEntity<>(token,HttpStatus.OK);
+        }else {
+            token= "用户名或密码错误";
+        }
+        return new ResponseEntity<>(token,HttpStatus.OK);
+    }
+
+    @RequestMapping("/check")
+    public ResponseEntity<?> check(HttpServletRequest request){
+        String token= request.getHeader(header);
+        user ad=null;
+        System.out.println(token);
+        if (token!=null){
+            Claims claims=jwtTokenUtil.parseJWT(token);
+            System.out.println(claims.getIssuer());
+            //调用根据用户名查询用户数据方法
+            ad=houTaiuserService.getAdmin(claims.getIssuer());
+            //密码隐藏
+            ad.setPwd("*****");
+            System.err.println(ad);
+        }
+        return new ResponseEntity<>(ad,HttpStatus.OK);
+    }
+
+    /**
      * 根据id查询单条用户信息
      * @param id
      * @return
@@ -116,6 +181,21 @@ public class HouTaiUserController {
     public ResponseEntity<?> findOneUser(Integer id){
         user user = houTaiuserService.findOneUser(id);
         return new ResponseEntity<>(user,HttpStatus.OK);
+    }
+    /**
+     * 修改密码
+     * @param pwd
+     * @param username
+     * @return
+     */
+    @PutMapping("updPwd")
+    public ResponseEntity<?> updatePwd(@RequestParam("password2")String pwd,
+                                       @RequestParam("username") String username
+    ){
+        int count=houTaiuserService.updAdminsPwd(pwd,username);
+        System.out.println(count);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+
     }
 
     /**

@@ -3,13 +3,7 @@ package com.newer.lvyou.mapper;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.CacheNamespace;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import com.newer.lvyou.domain.dingdan;
@@ -108,10 +102,10 @@ public interface IDestinationMapper {
 	
 	/**
 	 * 插入订单信息
-	 * @param cards
 	 * @return
 	 */
-	@Insert("insert into dingdan(id,uid,uname,phone,email,time,chengren,ertong,info,state,jiuid,xiadantime,feiyong,guoid) values(#{id},#{uid},#{uname},#{phone},#{email},#{time},#{chengren},#{ertong},#{info},#{state},#{jiuid},#{xiadantime},#{feiyong},#{guoid})")
+	@Insert("insert into dingdan(uid,uname,phone,email,time,chengren,ertong,info,state,jiuid,xiadantime,feiyong,guoid) values(#{uid},#{uname},#{phone},#{email},#{time},#{chengren},#{ertong},#{info},#{state},#{jiuid},#{xiadantime},#{feiyong},#{guoid})")
+	@SelectKey(statement = "SELECT LAST_INSERT_ID()",keyProperty = "id",keyColumn = "id",before = false,resultType = Integer.class)
 	public int insert(dingdan dingdans);
 
 	/**
@@ -130,31 +124,7 @@ public interface IDestinationMapper {
 	 */
 	@Delete("delete from dingdan where id=#{id}")
 	public int delete(Integer id);
-	
-	/**
-	 * 根据uid,下单时间查询单条订单信息
-	 * @param uid,xiadantime
-	 * @return
-	 */
-	@Select("select id,uid,uname,phone,email,time,chengren,ertong,info,state,jiuid,xiadantime,feiyong,guoid from dingdan where uid=#{uid} and xiadantime=#{xiadantime}")
-	@Results({
-		@Result(property = "id",column = "ID"),
-		@Result(property = "uid",column = "UID"),
-		@Result(property = "uname",column = "UNAME"),
-		@Result(property = "phone",column = "PHONE"),
-		@Result(property = "email",column = "EMAIL"),
-		@Result(property = "time",column = "TIME"),
-		@Result(property = "chengren",column = "CHENGREN"),
-		@Result(property = "ertong",column = "ERTONG"),
-		@Result(property = "info",column = "INFO"),
-		@Result(property = "state",column = "STATE"),
-		@Result(property = "jiuid",column = "JIUID"),
-		@Result(property = "xiadantime",column = "XIADANTIME"),
-		@Result(property = "feiyong",column = "FEIYONG"),
-		@Result(property = "guoid",column = "GUOID")
-	})
-	public dingdan queryByDingdan(Integer uid, Date xiadantime);
-	
+
 	/**
 	 * 查询单条国家列表信息
 	 * @param id

@@ -11,17 +11,26 @@ public class pingjia implements Serializable {
     private String xiangqing;//评价内容
     private String tupian;   //图片
     private String username; //评价用户
-
+    private int shenhe;
     public pingjia() {
     }
 
-    public pingjia(int id, int guoid, String guoname, String xiangqing, String tupian, String username) {
+    public pingjia(int id, int guoid, String guoname, String xiangqing, String tupian, String username, int shenhe) {
         this.id = id;
         this.guoid = guoid;
         this.guoname = guoname;
         this.xiangqing = xiangqing;
         this.tupian = tupian;
         this.username = username;
+        this.shenhe = shenhe;
+    }
+
+    public int getShenhe() {
+        return shenhe;
+    }
+
+    public void setShenhe(int shenhe) {
+        this.shenhe = shenhe;
     }
 
     public static long getSerialVersionUID() {
@@ -85,6 +94,7 @@ public class pingjia implements Serializable {
                 ", xiangqing='" + xiangqing + '\'' +
                 ", tupian='" + tupian + '\'' +
                 ", username='" + username + '\'' +
+                ", shenhe=" + shenhe +
                 '}';
     }
 }

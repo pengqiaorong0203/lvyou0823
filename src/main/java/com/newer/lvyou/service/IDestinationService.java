@@ -71,14 +71,6 @@ public interface IDestinationService {
 	public dingdan queryByDingdanId(Integer id);
 	
 	/**
-	 * 根据uid,下单时间查询单条订单信息
-	 * 
-	 * @param uid,xiadantime
-	 * @return
-	 */
-	public dingdan queryByDingdan(Integer uid, Date xiadantime);
-	
-	/**
 	 * 查询单条国家列表信息
 	 * @param id
 	 * @return
