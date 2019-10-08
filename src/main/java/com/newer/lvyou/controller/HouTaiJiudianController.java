@@ -122,7 +122,7 @@ public class HouTaiJiudianController {
         jiudian.setGuoid(guoid);
         jiudian.setInfo(info);
         jiudian.setJiage(jiage);
-        jiudian.setTupian(guoname);
+        jiudian.setGuoname(guoname);
         jiudian.setJdname(jdname);
         jiudian.setTupian(filePath);
         System.out.println("打印保存路径3...："+jiudian);
