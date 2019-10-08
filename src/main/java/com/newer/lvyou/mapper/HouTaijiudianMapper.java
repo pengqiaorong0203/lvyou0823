@@ -1,5 +1,6 @@
 package com.newer.lvyou.mapper;
 
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.jiudian;
 import com.newer.lvyou.domain.jiudianxiangqing;
 import org.apache.ibatis.annotations.*;
@@ -28,6 +29,7 @@ public interface HouTaijiudianMapper {
      */
     @Insert("insert into jiudian(guoid,jdname,info,tupian,shenhe,jiage) " +
             "values(#{guoid},#{jdname},#{info},#{tupian},#{shenhe},#{jiage})")
+    @SelectKey(statement="select max(id) from jiudian", keyProperty="id", before=false, resultType=int.class)
     public int jiudianAdd(jiudian jiudian);
 
     /**
@@ -44,7 +46,7 @@ public interface HouTaijiudianMapper {
      * @return
      */
     @Update("update jiudian set jdname=#{jdname},info=#{info}," +
-            "shenhe=#{shenhe},jiage=#{jiage} where id=#{id}")
+            "shenhe=#{shenhe},jiage=#{jiage},tupian=#{tupian} where id=#{id}")
     public int jiudianUpdate(jiudian jiudian);
 
     /**
@@ -64,8 +66,8 @@ public interface HouTaijiudianMapper {
      * 动态加载所有国家ID
      * @return
      */
-    @Select("SELECT guoid FROM jiudian")
-    public List<jiudian> jiudianID();
+    @Select("SELECT * FROM guojialist")
+    public List<guojialist> jiudianID();
 
 
     /**

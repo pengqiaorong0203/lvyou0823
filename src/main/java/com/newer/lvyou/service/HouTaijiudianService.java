@@ -1,5 +1,6 @@
 package com.newer.lvyou.service;
 
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.jiudian;
 import com.newer.lvyou.domain.jiudianxiangqing;
 import org.apache.ibatis.annotations.Param;
@@ -56,7 +57,7 @@ public interface HouTaijiudianService {
      * 动态加载所有国家ID
      * @return
      */
-    public List<jiudian> jiudianID();
+    public List<guojialist> jiudianID();
 
     /**
      * 查询单条酒店信息

@@ -1,5 +1,6 @@
 package com.newer.lvyou.service;
 
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.jiudian;
 import com.newer.lvyou.domain.jiudianxiangqing;
 import com.newer.lvyou.mapper.HouTaijiudianMapper;
@@ -80,7 +81,7 @@ public class HouTaijiudianServiceImpl implements HouTaijiudianService {
      * @return
      */
     @Override
-    public List<jiudian> jiudianID() {
+    public List<guojialist> jiudianID() {
         return houTaijiudianMapper.jiudianID();
     }
 

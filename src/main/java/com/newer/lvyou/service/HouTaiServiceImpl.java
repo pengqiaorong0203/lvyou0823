@@ -202,4 +202,9 @@ public class HouTaiServiceImpl implements HouTaiService {
     public int updGJLSH(int id, int shenhe) {
         return houtaiMapper.updGJLSH(id,shenhe);
     }
+
+    @Override
+    public int addSHL(shenhelist shl) {
+        return houtaiMapper.addSHL(shl);
+    }
 }

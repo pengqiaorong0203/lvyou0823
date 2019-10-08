@@ -8,6 +8,7 @@
             1=1
             <if test="guoname!=null and guoname!=''">
                 and guoname like concat('%',concat(#{guoname},'%'))
+                 or zhouname like concat('%',concat(#{guoname},'%'))
             </if>
             limit #{pageNo},#{pageSize}
         </where>
@@ -19,6 +20,7 @@
             1=1
             <if test="guoname!=null and guoname!=''">
                 and guoname like concat('%',concat(#{guoname},'%'))
+                 or zhouname like concat('%',concat(#{guoname},'%'))
             </if>
         </where>
     </select>

@@ -1,5 +1,6 @@
 package com.newer.lvyou.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -122,7 +123,7 @@ public class DestinationController {
 
 	/**
 	 * 新增订单
-	 * 
+	 *
 	 * @param dingdan
 	 * @return
 	 */
@@ -131,12 +132,10 @@ public class DestinationController {
 		log.info("开始创建订单信息.....");
 
 		Integer i = DestinationService.add(dingdan);
-		
+		System.out.println(dingdan);
 		String str = "预定失败";
 		if (i > 0) {
-			dingdan dd = DestinationService.queryByDingdan(dingdan.getUid(), dingdan.getXiadantime());
-			
-			return new ResponseEntity<>(dd, HttpStatus.CREATED);
+			return new ResponseEntity<>(dingdan, HttpStatus.CREATED);
 		}
 		log.info("创建完成");
 		return new ResponseEntity<>(str, HttpStatus.CREATED);

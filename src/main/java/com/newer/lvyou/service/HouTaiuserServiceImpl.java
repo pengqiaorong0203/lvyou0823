@@ -82,4 +82,19 @@ public class HouTaiuserServiceImpl implements HouTaiuserService{
     public user findOneUser(Integer id) {
         return houTaiUserMapper.findOneUser(id);
     }
+
+    @Override
+    public user login(String userename, String pwd) {
+        return houTaiUserMapper.Login(userename,pwd);
+    }
+
+    @Override
+    public user getAdmin(String username) {
+        return houTaiUserMapper.getAdmin(username);
+    }
+
+    @Override
+    public int updAdminsPwd(String pwd, String username) {
+        return houTaiUserMapper.updAdminsPwd(pwd,username);
+    }
 }

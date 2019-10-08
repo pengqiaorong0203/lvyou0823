@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newer.lvyou.domain.*;
 import com.newer.lvyou.service.HouTaiService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -154,6 +154,13 @@ public class HoutaiContorller {
         int count = houTaiService.addGJList(gjl);
         System.out.println(gjl.getId());
         int id = gjl.getId();
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("旅游列表");
+        shl.setBiaoid(id);
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(id,HttpStatus.OK);
     }
 
@@ -191,6 +198,13 @@ public class HoutaiContorller {
         gjl.setShenhe(0);
         System.out.println(gjl);
         int count = houTaiService.updGJList(gjl);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("旅游列表");
+        shl.setBiaoid(id);
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
@@ -297,6 +311,13 @@ public class HoutaiContorller {
         lyxq.setLiangdian(liangdian);
         lyxq.setFeiyong(feiyong);
         int count = houTaiService.updLYXQ(lyxq);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("旅游列表");
+        shl.setBiaoid(guoid);
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
@@ -339,6 +360,13 @@ public class HoutaiContorller {
     @PostMapping("/updJTXC")
     public ResponseEntity<?> updJTXC(jutixingcheng jtxc){
         int count = houTaiService.updJTXC(jtxc);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("旅游列表");
+        shl.setBiaoid(jtxc.getGuoid());
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
@@ -381,6 +409,12 @@ public class HoutaiContorller {
     @PostMapping("/updTP")
     public ResponseEntity<?> updTP(tupian tp){
         int count = houTaiService.updTP(tp);
+        return new ResponseEntity<>(count,HttpStatus.OK);
+    }
+
+    //添加审核列表
+    public ResponseEntity<?> addSHL(shenhelist shl){
+        int count = houTaiService.addSHL(shl);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 

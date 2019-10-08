@@ -17,6 +17,8 @@ import com.newer.lvyou.domain.lvyouxiangqing;
 import com.newer.lvyou.domain.pingjia;
 import com.newer.lvyou.domain.tuandui;
 import com.newer.lvyou.domain.tupian;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("DestinationService")
@@ -41,6 +43,7 @@ public class DestinationServiceImpl implements IDestinationService {
 		return destinationMapper.queryByGuoId(guoid);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	@Override
 	public int add(dingdan dingdans) {
 		return destinationMapper.insert(dingdans);
@@ -59,11 +62,6 @@ public class DestinationServiceImpl implements IDestinationService {
 	@Override
 	public dingdan queryByDingdanId(Integer id) {
 		return destinationMapper.queryByDingdanId(id);
-	}
-
-	@Override
-	public dingdan queryByDingdan(Integer uid, Date xiadantime) {
-		return destinationMapper.queryByDingdan(uid, xiadantime);
 	}
 
 	@Override

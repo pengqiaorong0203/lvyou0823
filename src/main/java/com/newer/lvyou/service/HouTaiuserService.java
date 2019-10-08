@@ -57,4 +57,25 @@ public interface HouTaiuserService {
      * @return
      */
     public user findOneUser(Integer id);
+
+    /**
+     * 根据用户名与密码查询
+     * @return
+     */
+    public user login(@Param("username")String userename,
+                      @Param("pwd")String pwd);
+    /**
+     * 根据用户名查询
+     * @return
+     */
+    public user getAdmin(@Param("username") String username);
+
+    /**
+     * 根据用户名修改用户密码
+     * @param pwd
+     * @param username
+     * @return
+     */
+    public int updAdminsPwd(@Param("pwd")String pwd,
+                            @Param("username") String username);
 }

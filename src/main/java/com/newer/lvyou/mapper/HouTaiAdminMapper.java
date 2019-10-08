@@ -73,4 +73,7 @@ public interface HouTaiAdminMapper {
      */
     @Select("select * from admin where id=#{id}")
     public admin adminSelectOne(@Param("id")Integer id);
+
+    @Select("select * from admin where name = #{name}")
+    public admin selectAdminByUsername(@Param("name")String name);
 }

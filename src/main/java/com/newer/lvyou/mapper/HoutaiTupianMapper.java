@@ -40,6 +40,7 @@ public interface HoutaiTupianMapper {
      * @return
      */
     @Insert("insert into tupian(guoid,tpurl) values(#{guoid},#{tpurl})")
+    @SelectKey(statement="select max(id) from tupian", keyProperty="id", before=false, resultType=int.class)
     /*@Insert("insert into tupian(guoid,tpurl) values((select guojialist.id from guojialist where guoname=#{guoname}),#{tpurl})")*/
     public int tupianAdd(tupian tupian);
 

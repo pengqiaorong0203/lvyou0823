@@ -33,6 +33,7 @@ public interface HouTaiTeamMapper {
      * @return
      */
     @Insert("insert into tuandui(tname,info,toux) values(#{tname},#{info},#{toux})")
+    @SelectKey(statement="select max(id) from tuandui", keyProperty="id", before=false, resultType=int.class)
     public int tuanduiAdd(tuandui tuandui);
 
     /**

@@ -1,8 +1,11 @@
 package com.newer.lvyou.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.newer.lvyou.domain.guojialist;
 import com.newer.lvyou.domain.jiudian;
 import com.newer.lvyou.domain.jiudianxiangqing;
+import com.newer.lvyou.domain.shenhelist;
+import com.newer.lvyou.service.HouTaiService;
 import com.newer.lvyou.service.HouTaijiudianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,6 +23,9 @@ public class HouTaiJiudianController {
 
     @Autowired
     private HouTaijiudianService houTaijiudianService;
+
+    @Autowired
+    private HouTaiService houTaiService;
 
 
     /**
@@ -65,6 +72,14 @@ public class HouTaiJiudianController {
     @PostMapping("/jiudianAdd")
     public ResponseEntity<?> jiudianAdd(jiudian jiudian) {
         int i = houTaijiudianService.jiudianAdd(jiudian);
+        int id = jiudian.getId();
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("酒店列表");
+        shl.setBiaoid(id);
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
 
@@ -87,6 +102,13 @@ public class HouTaiJiudianController {
     @PostMapping("/jiudianUpdate")
     public ResponseEntity<?> jiudianUpdate(jiudian jiudian) {
         int i = houTaijiudianService.jiudianUpdate(jiudian);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("酒店列表");
+        shl.setBiaoid(jiudian.getId());
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
 
@@ -110,10 +132,13 @@ public class HouTaiJiudianController {
         if (!uplx.isEmpty()){
             try {
                 /*文件保存路径*/
-                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+guoid+".jpg";
+                filePath = "D:/nginx-1.16.0/html/lvyou/img/"+guoid+".jpg";
                 /*转存路径*/
+                System.out.println("打印保存路径1...："+filePath);
                 uplx.transferTo(new File(filePath));
+
                 filePath = "img/"+guoid+".jpg";
+                System.out.println("打印保存路径2...："+filePath);
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -125,11 +150,8 @@ public class HouTaiJiudianController {
         jiudian.setGuoname(guoname);
         jiudian.setJdname(jdname);
         jiudian.setTupian(filePath);
-        System.out.println("打印保存路径3...："+jiudian);
         int count = houTaijiudianService.jiudianAdd(jiudian);
-        System.out.println("打印保存路径1...："+filePath);
-        System.out.println("打印保存路径2...："+filePath);
-        System.out.println("打印保存路径3...："+jiudian);
+        System.out.println("打印保存路径3...："+filePath);
         return new ResponseEntity<>(count,HttpStatus.OK);
     }
 
@@ -147,9 +169,9 @@ public class HouTaiJiudianController {
      *动态加载所有国家ID
      * @return
      */
-    @GetMapping("/jiudianID")
-    public ResponseEntity<?> jiudianID(){
-        List<jiudian> jiudianList = houTaijiudianService.jiudianID();
+    @GetMapping("/guojialist")
+    public ResponseEntity<?> guojialist(){
+        List<guojialist> jiudianList = houTaijiudianService.jiudianID();
         return new ResponseEntity<>(jiudianList,HttpStatus.OK);
     }
 
@@ -211,14 +233,14 @@ public class HouTaiJiudianController {
                                                @RequestParam("tp") String tp,
                                                @RequestParam("jdname") String jdname,
                                                @RequestParam("jiage")Integer jiage,
-                                               @RequestParam("id")Integer id
-    ){
+                                               @RequestParam("id")Integer id){
         String filePath = null;
+        System.out.println(uplx);
         if(uplx!=null){
         if (!uplx.isEmpty()){
             try {
                 /*文件保存路径*/
-                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+jdname+".jpg";
+                filePath = "D:/nginx-1.16.0/html/lvyou/img/"+jdname+".jpg";
                 /*转存路径*/
                 uplx.transferTo(new File(filePath));
                 filePath = "img/"+jdname+".jpg";
@@ -235,8 +257,14 @@ public class HouTaiJiudianController {
         jiudian.setJiage(jiage);
         jiudian.setTupian(filePath);
         jiudian.setJdname(jdname);
-        System.out.println("打印保存路径3...："+jiudian);
         int count = houTaijiudianService.jiudianUpdate(jiudian);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("酒店列表");
+        shl.setBiaoid(id);
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         System.out.println("打印保存路径1...："+filePath);
         System.out.println("打印保存路径2...："+filePath);
         System.out.println("打印保存路径3...："+count);

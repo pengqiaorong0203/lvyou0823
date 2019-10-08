@@ -1,7 +1,9 @@
 package com.newer.lvyou.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.newer.lvyou.domain.shenhelist;
 import com.newer.lvyou.domain.tuandui;
+import com.newer.lvyou.service.HouTaiService;
 import com.newer.lvyou.service.HouTaiteamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -18,6 +21,9 @@ public class HouTaiTeamController {
 
     @Autowired
     private HouTaiteamService houTaiteamService;
+
+    @Autowired
+    private HouTaiService houTaiService;
 
     /**
      * 显示所有团队以及信息
@@ -63,6 +69,14 @@ public class HouTaiTeamController {
     @PostMapping("/tuanduiAdd")
     public ResponseEntity<?> userAdd(tuandui tuandui) {
         int i = houTaiteamService.tuanduiAdd(tuandui);
+        int id = tuandui.getId();
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("团队列表");
+        shl.setBiaoid(id);
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
 
@@ -86,6 +100,13 @@ public class HouTaiTeamController {
     @GetMapping("/tuanduiUpdate")
     public ResponseEntity<?> tuanduiUpdate(tuandui tuandui) {
         int i = houTaiteamService.tuanduiUpdate(tuandui);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("团队列表");
+        shl.setBiaoid(tuandui.getId());
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         return new ResponseEntity<>(i,HttpStatus.OK);
     }
 
@@ -127,7 +148,7 @@ public class HouTaiTeamController {
         if (!uplx.isEmpty()){
             try {
                 /*文件保存路径*/
-                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+tname+".jpg";
+                filePath = "D:/nginx-1.16.0/html/lvyou/img/"+tname+".jpg";
                 /*转存路径*/
                 uplx.transferTo(new File(filePath));
                 filePath = "img/"+tname+".jpg";
@@ -140,6 +161,13 @@ public class HouTaiTeamController {
         tuandui.setInfo(info);
         tuandui.setToux(filePath);
         int count = houTaiteamService.tuanduiAdd(tuandui);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("团队列表");
+        shl.setBiaoid(tuandui.getId());
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         System.out.println("打印保存路径1...："+filePath);
         System.out.println("打印保存路径2...："+filePath);
         System.out.println("打印保存路径3...："+tuandui);
@@ -156,28 +184,39 @@ public class HouTaiTeamController {
     @PostMapping("/tuanduiUpdateList")
     public ResponseEntity<?> tuanduiUpdateList(@RequestParam(value = "file",required = false)MultipartFile uplx,
                                                @RequestParam("tname") String tname,
+                                               @RequestParam("id") int id,
                                                @RequestParam("info") String info,
                                                @RequestParam("tp")String tp
     ){
         String filePath = null;
-        if (!uplx.isEmpty()){
+        if(uplx!=null){
+        if (!uplx.isEmpty()) {
             try {
                 /*文件保存路径*/
-                filePath = "D:/nginx-1.16.0/html/lvyou0823/img/"+tname+".jpg";
+                filePath = "D:/nginx-1.16.0/html/lvyou/img/" + tname + ".jpg";
                 /*转存路径*/
                 uplx.transferTo(new File(filePath));
-                filePath = "img/"+tname+".jpg";
-            }catch (Exception e){
+                filePath = "img/" + tname + ".jpg";
+            } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
         }else{
             filePath = tp;
         }
         tuandui tuandui = new tuandui();
+        tuandui.setId(id);
         tuandui.setTname(tname);
         tuandui.setInfo(info);
         tuandui.setToux(filePath);
         int count = houTaiteamService.tuanduiUpdate(tuandui);
+        shenhelist shl = new shenhelist();
+        shl.setXiugaibiao("团队列表");
+        shl.setBiaoid(tuandui.getId());
+        shl.setShenhe(0);
+        shl.setXiugaiadmin("Tonn");
+        shl.setXiugaitime(new Date());
+        houTaiService.addSHL(shl);
         System.out.println("打印保存路径1...："+filePath);
         System.out.println("打印保存路径2...："+filePath);
         System.out.println("打印保存路径3...："+tuandui);

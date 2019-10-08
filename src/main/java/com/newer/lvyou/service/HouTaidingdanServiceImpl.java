@@ -30,7 +30,7 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
      * @return
      */
     @Override
-    public List<dingdan> findAlldingdanFenYe(String uname,Integer state,Integer pageNo, Integer pageSize, String beginDate, String endDate) {
+    public List<dingdan> findAlldingdanFenYe(String uname,String state,Integer pageNo, Integer pageSize, String beginDate, String endDate) {
         return houTaidingdanMapper.findAlldingdanFenYe(uname,state,pageNo,pageSize,beginDate,endDate);
     }
 
@@ -89,7 +89,7 @@ public class HouTaidingdanServiceImpl implements HouTaidingdanService{
      * @return
      */
     @Override
-    public int dingdanCount(String uname,Integer state,String beginDate,String endDate) {
+    public int dingdanCount(String uname,String state,String beginDate,String endDate) {
         return houTaidingdanMapper.dingdanCount(uname,state,beginDate,endDate);
     }
 

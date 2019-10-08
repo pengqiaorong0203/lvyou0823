@@ -10,8 +10,7 @@ import org.springframework.web.filter.CorsFilter;
 public class CorsConfig {
     private final String [] orgins = {
             "127.0.0.1",
-            "127.0.0.1:8087",
-            "www.baidu.com"
+            "127.0.0.1:8087"
     };
 
     @Bean
